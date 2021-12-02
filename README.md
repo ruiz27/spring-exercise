@@ -21,7 +21,7 @@ de dominio Ejm. Coche, Persona o elementro que se quiera.
 
 ###Consideraciones
 
-1. Usar las buenas practivas explicadas en formación.
+1. Usar las buenas practicas explicadas en formación.
 2. Usar el flujo de repositorio con ramas GIT (flujo jira).
 3. Usar anotaciones lombok
 4. Crear pull request al terminar el ejercicio.
