@@ -19,7 +19,7 @@ de dominio Ejm. Coche, Persona o elementro que se quiera.
 4. Crear clases necesarias para resolver el flujo (api, controller, service, repository)
 5. Hacer test unitarios
 
-###Consideraciones
+### Consideraciones
 
 1. Usar las buenas practicas explicadas en formación.
 2. Usar el flujo de repositorio con ramas GIT (flujo jira).
@@ -27,7 +27,7 @@ de dominio Ejm. Coche, Persona o elementro que se quiera.
 4. Crear pull request al terminar el ejercicio.
 
 
-###Enlaces:
+### Enlaces:
 
 https://medium.com/springboot-chronicles/api-first-approach-with-openapi-contracts-maven-spring-boot-6aa9b9251341
 https://spring.io/guides/tutorials/rest/
