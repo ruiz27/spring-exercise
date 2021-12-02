@@ -5,6 +5,13 @@
 Crear los endpoint necesarios para crear, consultar, actualizar una entidad 
 de dominio Ejm. Coche, Persona o elementro que se quiera.
 
+###Pre requisitos:
+
+1. Instalar java
+2. Instalar Intelij
+3. Instalar base de datos H2
+
+
 1. Crear api con swagger
 2. Configurar base de datos H2 con el archivo application.yml
 3. Crear entidades de dominio (@entity)
