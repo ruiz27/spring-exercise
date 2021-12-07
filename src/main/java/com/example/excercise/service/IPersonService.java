@@ -5,5 +5,5 @@ import com.example.excercise.dto.Person;
 import java.util.List;
 
 public interface IPersonService {
-    public List<Person> getAllPerson();
+    List<Person> getAllPerson();
 }
