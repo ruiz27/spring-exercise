@@ -6,12 +6,11 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.Objects;
 
-
 /**
  * Person
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-03T12:09:26.656Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-07T07:14:06.685Z")
 
 
 public class Person   {

@@ -3,78 +3,100 @@ package com.example.excercise.entities;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name="Person")
-public class Person {
+public class Person implements Serializable {
     @Id
-    private String id;
-    private String name;
-    private String surname1;
-    private String surname2;
-    private int age;
-    private String gender;
+    private Long id;
+    private String username;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String password;
+    private String phone;
+    private Integer userstatus;
 
     public Person() {
     }
 
-    public String getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getSurname1() {
-        return surname1;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setSurname1(String surname1) {
-        this.surname1 = surname1;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getSurname2() {
-        return surname2;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setSurname2(String surname2) {
-        this.surname2 = surname2;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public int getAge() {
-        return age;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getGender() {
-        return gender;
+    public String getPassword() {
+        return password;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Integer getUserstatus() {
+        return userstatus;
+    }
+
+    public void setUserstatus(Integer userstatus) {
+        this.userstatus = userstatus;
     }
 
     @Override
     public String toString() {
-        return "Persons{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", surname1='" + surname1 + '\'' +
-                ", surname2='" + surname2 + '\'' +
-                ", age=" + age +
-                ", gender='" + gender + '\'' +
+        return "Person{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userstatus=" + userstatus +
                 '}';
     }
 }
