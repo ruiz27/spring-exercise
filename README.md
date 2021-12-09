@@ -29,9 +29,9 @@ de dominio Ejm. Coche, Persona o elementro que se quiera.
 
 ### Enlaces:
 
-https://medium.com/springboot-chronicles/api-first-approach-with-openapi-contracts-maven-spring-boot-6aa9b9251341
-https://spring.io/guides/tutorials/rest/
-https://www.nigmacode.com/java/crear-api-rest-con-spring/
+- https://medium.com/springboot-chronicles/api-first-approach-with-openapi-contracts-maven-spring-boot-6aa9b9251341
+- https://spring.io/guides/tutorials/rest/
+- https://www.nigmacode.com/java/crear-api-rest-con-spring/
 
 
 
