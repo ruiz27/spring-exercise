@@ -94,7 +94,7 @@ paths:
         - person
       summary: Find person by ID
       description: Returns a single person
-      operationId: getPesonById
+      operationId: getPersonById
       produces:
         - application/json
         - application/xml
@@ -117,9 +117,9 @@ paths:
     post:
       tags:
         - person
-      summary: Updates a person in the store with form data
+      summary: Updates a person
       description: ''
-      operationId: updatePetWithForm
+      operationId: updatePerson
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -128,7 +128,7 @@ paths:
       parameters:
         - name: personId
           in: path
-          description: ID of pet that needs to be updated
+          description: ID of person that needs to be updated
           required: true
           type: integer
           format: int64
