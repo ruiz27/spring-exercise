@@ -37,7 +37,7 @@ paths:
     post:
       tags:
         - person
-      summary: Post one people in database
+      summary: Post one person in database
       description: ''
       operationId: postOnePerson
       produces:
@@ -55,7 +55,7 @@ paths:
     put:
       tags:
         - person
-      summary: Put one people in database
+      summary: Put one person in database
       description: ''
       operationId: puttOnePerson
       produces:
@@ -73,7 +73,7 @@ paths:
     delete:
       tags:
         - person
-      summary: Delete one people in database
+      summary: Delete one person in database
       description: ''
       operationId: deleteOnePerson
       produces:
