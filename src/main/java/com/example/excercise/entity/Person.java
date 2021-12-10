@@ -5,14 +5,12 @@ import javax.persistence.*;
 @Entity
 @Table(name="Person")
 public class Person {
+    public Person(){}
 
     @Id
-    // PREGUNTAR @GeneratedValue(strategy=GenerationType.IDENTITY) Y @Column
-    // Generate llaves primarias autoincrementales
-    // Column si el nombre del campo en la base de datos es diferente al nombre de la entidad
     private Long id;
 
-    private String username;
+    private String userName;
     private String firstName;
     private String lastName;
     private String email;
@@ -20,9 +18,9 @@ public class Person {
     private String phone;
     private Integer userStatus;
 
-    public Person(Long id, String username, String firstName, String lastName, String email, String password, String phone, Integer userStatus) {
+    public Person(Long id, String userName, String firstName, String lastName, String email, String password, String phone, Integer userStatus) {
         this.id = id;
-        this.username = username;
+        this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -35,8 +33,8 @@ public class Person {
         return id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
     public String getFirstName() {
@@ -51,7 +49,7 @@ public class Person {
         return email;
     }
 
-    public String getPasword() {
+    public String getPassword() {
         return password;
     }
 
@@ -67,8 +65,8 @@ public class Person {
         this.id = id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String username) {
+        this.userName = userName;
     }
 
     public void setFirstName(String firstName) {
@@ -83,8 +81,8 @@ public class Person {
         this.email = email;
     }
 
-    public void setPasword(String pasword) {
-        this.password = pasword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setPhone(String phone) {
@@ -99,11 +97,11 @@ public class Person {
     public String toString() {
         return "Person{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", pasword='" + password + '\'' +
+                ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", userStatus=" + userStatus +
                 '}';

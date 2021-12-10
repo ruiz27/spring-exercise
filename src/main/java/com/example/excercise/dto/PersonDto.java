@@ -4,19 +4,15 @@ import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.validation.annotation.Validated;
 
-/**
- * Person
- */
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-03T14:05:10.468Z")
 
-
-public class Person   {
+public class PersonDto {
   @JsonProperty("id")
   private Long id = null;
 
   @JsonProperty("username")
-  private String username = null;
+  private String userName = null;
 
   @JsonProperty("firstName")
   private String firstName = null;
@@ -36,17 +32,12 @@ public class Person   {
   @JsonProperty("userStatus")
   private Integer userStatus = null;
 
-  public Person id(Long id) {
+  public PersonDto id(Long id) {
     this.id = id;
     return this;
   }
 
-  /**
-   * Get id
-   * @return id
-  **/
   @ApiModelProperty(value = "")
-
 
   public Long getId() {
     return id;
@@ -56,37 +47,27 @@ public class Person   {
     this.id = id;
   }
 
-  public Person username(String username) {
-    this.username = username;
+  public PersonDto username(String username) {
+    this.userName = username;
     return this;
   }
 
-  /**
-   * Get username
-   * @return username
-  **/
   @ApiModelProperty(value = "")
 
-
-  public String getUsername() {
-    return username;
+  public String getUserName() {
+    return userName;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
 
-  public Person firstName(String firstName) {
+  public PersonDto firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
 
-  /**
-   * Get firstName
-   * @return firstName
-  **/
   @ApiModelProperty(value = "")
-
 
   public String getFirstName() {
     return firstName;
@@ -96,17 +77,12 @@ public class Person   {
     this.firstName = firstName;
   }
 
-  public Person lastName(String lastName) {
+  public PersonDto lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
 
-  /**
-   * Get lastName
-   * @return lastName
-  **/
   @ApiModelProperty(value = "")
-
 
   public String getLastName() {
     return lastName;
@@ -116,17 +92,12 @@ public class Person   {
     this.lastName = lastName;
   }
 
-  public Person email(String email) {
+  public PersonDto email(String email) {
     this.email = email;
     return this;
   }
 
-  /**
-   * Get email
-   * @return email
-  **/
   @ApiModelProperty(value = "")
-
 
   public String getEmail() {
     return email;
@@ -136,17 +107,12 @@ public class Person   {
     this.email = email;
   }
 
-  public Person password(String password) {
+  public PersonDto password(String password) {
     this.password = password;
     return this;
   }
 
-  /**
-   * Get password
-   * @return password
-  **/
   @ApiModelProperty(value = "")
-
 
   public String getPassword() {
     return password;
@@ -156,17 +122,12 @@ public class Person   {
     this.password = password;
   }
 
-  public Person phone(String phone) {
+  public PersonDto phone(String phone) {
     this.phone = phone;
     return this;
   }
 
-  /**
-   * Get phone
-   * @return phone
-  **/
   @ApiModelProperty(value = "")
-
 
   public String getPhone() {
     return phone;
@@ -176,17 +137,12 @@ public class Person   {
     this.phone = phone;
   }
 
-  public Person userStatus(Integer userStatus) {
+  public PersonDto userStatus(Integer userStatus) {
     this.userStatus = userStatus;
     return this;
   }
 
-  /**
-   * User Status
-   * @return userStatus
-  **/
   @ApiModelProperty(value = "User Status")
-
 
   public Integer getUserStatus() {
     return userStatus;
@@ -196,7 +152,6 @@ public class Person   {
     this.userStatus = userStatus;
   }
 
-
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -205,9 +160,9 @@ public class Person   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Person person = (Person) o;
+    PersonDto person = (PersonDto) o;
     return Objects.equals(this.id, person.id) &&
-        Objects.equals(this.username, person.username) &&
+        Objects.equals(this.userName, person.userName) &&
         Objects.equals(this.firstName, person.firstName) &&
         Objects.equals(this.lastName, person.lastName) &&
         Objects.equals(this.email, person.email) &&
@@ -218,16 +173,15 @@ public class Person   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, username, firstName, lastName, email, password, phone, userStatus);
+    return Objects.hash(id, userName, firstName, lastName, email, password, phone, userStatus);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class Person {\n");
-    
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    userName: ").append(toIndentedString(userName)).append("\n");
     sb.append("    firstName: ").append(toIndentedString(firstName)).append("\n");
     sb.append("    lastName: ").append(toIndentedString(lastName)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
@@ -238,10 +192,6 @@ public class Person   {
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
