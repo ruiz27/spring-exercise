@@ -1,12 +1,8 @@
 package com.example.excercise;
 
-import com.example.excercise.controller.PersonApiController;
 
-
-import com.example.excercise.dto.Person;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
 @DataJpaTest
 class ExcerciseApplicationTests {

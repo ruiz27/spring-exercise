@@ -1,9 +1,11 @@
 package com.example.excercise.service;
 
-import com.example.excercise.dto.Person;
+import com.example.excercise.dto.PersonDto;
 
 import java.util.List;
 
 public interface IPersonService {
-    List<Person> getAllPerson();
+    List<PersonDto> getAllPerson();
+    PersonDto postOnePerson(PersonDto body);
+    PersonDto deleteOnePerson(Integer id);
 }

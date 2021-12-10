@@ -6,16 +6,14 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.Objects;
 
-/**
- * Person
- */
+
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-07T07:14:06.685Z")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-09T11:32:42.208Z")
 
 
-public class Person   {
+public class PersonDto {
   @JsonProperty("id")
-  private Long id = null;
+  private Integer id = null;
 
   @JsonProperty("username")
   private String username = null;
@@ -38,35 +36,29 @@ public class Person   {
   @JsonProperty("userStatus")
   private Integer userStatus = null;
 
-  public Person id(Long id) {
+  public PersonDto id(Integer id) {
     this.id = id;
     return this;
   }
 
-  /**
-   * Get id
-   * @return id
-  **/
+
   @ApiModelProperty(value = "")
 
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
-  public Person username(String username) {
+  public PersonDto username(String username) {
     this.username = username;
     return this;
   }
 
-  /**
-   * Get username
-   * @return username
-  **/
+
   @ApiModelProperty(value = "")
 
 
@@ -78,15 +70,12 @@ public class Person   {
     this.username = username;
   }
 
-  public Person firstName(String firstName) {
+  public PersonDto firstName(String firstName) {
     this.firstName = firstName;
     return this;
   }
 
-  /**
-   * Get firstName
-   * @return firstName
-  **/
+
   @ApiModelProperty(value = "")
 
 
@@ -98,15 +87,12 @@ public class Person   {
     this.firstName = firstName;
   }
 
-  public Person lastName(String lastName) {
+  public PersonDto lastName(String lastName) {
     this.lastName = lastName;
     return this;
   }
 
-  /**
-   * Get lastName
-   * @return lastName
-  **/
+
   @ApiModelProperty(value = "")
 
 
@@ -118,15 +104,12 @@ public class Person   {
     this.lastName = lastName;
   }
 
-  public Person email(String email) {
+  public PersonDto email(String email) {
     this.email = email;
     return this;
   }
 
-  /**
-   * Get email
-   * @return email
-  **/
+
   @ApiModelProperty(value = "")
 
 
@@ -138,15 +121,12 @@ public class Person   {
     this.email = email;
   }
 
-  public Person password(String password) {
+  public PersonDto password(String password) {
     this.password = password;
     return this;
   }
 
-  /**
-   * Get password
-   * @return password
-  **/
+
   @ApiModelProperty(value = "")
 
 
@@ -158,15 +138,12 @@ public class Person   {
     this.password = password;
   }
 
-  public Person phone(String phone) {
+  public PersonDto phone(String phone) {
     this.phone = phone;
     return this;
   }
 
-  /**
-   * Get phone
-   * @return phone
-  **/
+
   @ApiModelProperty(value = "")
 
 
@@ -178,15 +155,12 @@ public class Person   {
     this.phone = phone;
   }
 
-  public Person userStatus(Integer userStatus) {
+  public PersonDto userStatus(Integer userStatus) {
     this.userStatus = userStatus;
     return this;
   }
 
-  /**
-   * User Status
-   * @return userStatus
-  **/
+
   @ApiModelProperty(value = "User Status")
 
 
@@ -207,7 +181,7 @@ public class Person   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Person person = (Person) o;
+    PersonDto person = (PersonDto) o;
     return Objects.equals(this.id, person.id) &&
         Objects.equals(this.username, person.username) &&
         Objects.equals(this.firstName, person.firstName) &&
@@ -240,10 +214,7 @@ public class Person   {
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
+
   private String toIndentedString(java.lang.Object o) {
     if (o == null) {
       return "null";
