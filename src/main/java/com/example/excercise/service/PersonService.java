@@ -5,6 +5,7 @@ import com.example.excercise.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -70,10 +71,10 @@ public class PersonService implements IPersonService {
     @Override
     public PersonDto deleteOnePerson(Integer id) {
         PersonDto personDtoDeleted = new PersonDto();
-
         List<Person> personEntityList = personRepository.findAll();
         for (Person person : personEntityList) {
-            if (person.getId() == id) {
+            Integer idFounded = person.getId();
+            if (idFounded == id) {
 
                 personDtoDeleted.setId(person.getId());
                 personDtoDeleted.setUsername(person.getUsername());
@@ -87,5 +88,26 @@ public class PersonService implements IPersonService {
             }
         }
         return personDtoDeleted;
+    }
+
+    @Override
+    public PersonDto getPersonById(Integer id) {
+        PersonDto personRequested = new PersonDto();
+       List<Person> personEntityList = personRepository.findAll();
+       for (Person person: personEntityList){
+           Integer idFounded = person.getId();
+           if(idFounded == id){
+
+               personRequested.setId(person.getId());
+               personRequested.setUsername(person.getUsername());
+               personRequested.setFirstName(person.getFirstname());
+               personRequested.setLastName(person.getLastname());
+               personRequested.setEmail(person.getEmail());
+               personRequested.setPassword(person.getPassword());
+               personRequested.setPhone(person.getPhone());
+               personRequested.setUserStatus(person.getUserstatus());
+           }
+       }
+        return personRequested;
     }
 }

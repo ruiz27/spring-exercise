@@ -3,6 +3,7 @@
 package com.example.excercise.api;
 
 import com.example.excercise.dto.PersonDto;
+import com.example.excercise.entities.Person;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.ListIterator;
 
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-10T09:50:17.222Z")
@@ -51,7 +53,7 @@ public interface PersonApi {
     @RequestMapping(value = "/person",
             produces = { "application/json", "application/xml" },
             method = RequestMethod.GET)
-    ResponseEntity<PersonDto> getAllPeople();
+    ResponseEntity<List<PersonDto>> getAllPeople();
 
 
     @ApiOperation(value = "Find person by ID", nickname = "getPersonById", notes = "Returns a single person", response = PersonDto.class, tags={ "person", })
@@ -62,6 +64,6 @@ public interface PersonApi {
     @RequestMapping(value = "/person/{id}",
             produces = { "application/xml", "application/json" },
             method = RequestMethod.GET)
-    ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("id") Long id);
+    ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("id") Integer id);
 
 }

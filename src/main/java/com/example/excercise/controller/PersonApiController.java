@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-10T09:50:17.222Z")
@@ -38,58 +37,21 @@ public class PersonApiController implements PersonApi {
     }
     @PostMapping("/person")
     public ResponseEntity<PersonDto> addPerson(@ApiParam(value = "Person object that needs to be added to the databse" ,required=true )  @RequestBody PersonDto body) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/xml")) {
-            try {
-                return new ResponseEntity<PersonDto>(objectMapper.readValue("<null>  <id>123456789</id>  <username>aeiou</username>  <firstName>aeiou</firstName>  <lastName>aeiou</lastName>  <email>aeiou</email>  <password>aeiou</password>  <phone>aeiou</phone>  <userStatus>123</userStatus></null>", PersonDto.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/xml", e);
-                return new ResponseEntity<PersonDto>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<PersonDto>(objectMapper.readValue("{\"empty\": false}", PersonDto.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<PersonDto>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<PersonDto>(HttpStatus.NOT_IMPLEMENTED);
+        return new ResponseEntity<PersonDto>(service.postOnePerson(body),HttpStatus.OK);
     }
+
     @DeleteMapping("/person/{id}")
     public ResponseEntity<PersonDto> deleteOnePerson(@ApiParam(value = "",required=true) @PathVariable("id") Integer id) {
 
-        return new ResponseEntity<PersonDto>(service.deleteOnePerson(), HttpStatus.OK);
+        return new ResponseEntity<PersonDto>(service.deleteOnePerson(id), HttpStatus.OK);
     }
     @GetMapping("/person")
-    public ResponseEntity<PersonDto> getAllPeople() {
-        return new ResponseEntity<PersonDto>(service.getAllPerson(), HttpStatus.OK);//definir en swagger que devuelve lista
+    public ResponseEntity<List<PersonDto>> getAllPeople() {
+        return new ResponseEntity<List<PersonDto>>(service.getAllPerson(), HttpStatus.OK);
     }
-
-    public ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("id") Long id) {
-        String accept = request.getHeader("Accept");
-        if (accept != null && accept.contains("application/xml")) {
-            try {
-                return new ResponseEntity<PersonDto>(objectMapper.readValue("<null>  <id>123456789</id>  <username>aeiou</username>  <firstName>aeiou</firstName>  <lastName>aeiou</lastName>  <email>aeiou</email>  <password>aeiou</password>  <phone>aeiou</phone>  <userStatus>123</userStatus></null>", PersonDto.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/xml", e);
-                return new ResponseEntity<PersonDto>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        if (accept != null && accept.contains("application/json")) {
-            try {
-                return new ResponseEntity<PersonDto>(objectMapper.readValue("{\"empty\": false}", PersonDto.class), HttpStatus.NOT_IMPLEMENTED);
-            } catch (IOException e) {
-                log.error("Couldn't serialize response for content type application/json", e);
-                return new ResponseEntity<PersonDto>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
-        }
-
-        return new ResponseEntity<PersonDto>(HttpStatus.NOT_IMPLEMENTED);
+    @GetMapping("/person/{id}")
+    public ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("id") Integer id) {
+        return new ResponseEntity<PersonDto>(service.getPersonById(id), HttpStatus.OK);
     }
 
 }
