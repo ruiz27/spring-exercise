@@ -73,8 +73,7 @@ public class PersonService implements IPersonService {
         PersonDto personDtoDeleted = new PersonDto();
         List<Person> personEntityList = personRepository.findAll();
         for (Person person : personEntityList) {
-            Integer idFounded = person.getId();
-            if (idFounded == id) {
+            if (person.getId().equals(id)) {
 
                 personDtoDeleted.setId(person.getId());
                 personDtoDeleted.setUsername(person.getUsername());
@@ -95,8 +94,7 @@ public class PersonService implements IPersonService {
         PersonDto personRequested = new PersonDto();
        List<Person> personEntityList = personRepository.findAll();
        for (Person person: personEntityList){
-           Integer idFounded = person.getId();
-           if(idFounded == id){
+           if(person.getId().equals(id)){
 
                personRequested.setId(person.getId());
                personRequested.setUsername(person.getUsername());
