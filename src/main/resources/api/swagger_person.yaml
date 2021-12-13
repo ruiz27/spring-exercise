@@ -52,42 +52,7 @@ paths:
           description: Invalid username supplied
         '404':
           description: User not found
-    put:
-      tags:
-        - person
-      summary: Put one person in database
-      description: ''
-      operationId: puttOnePerson
-      produces:
-        - application/json
-        - application/xml
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/Person'
-        '400':
-          description: Invalid username supplied
-        '404':
-          description: User not found
-    delete:
-      tags:
-        - person
-      summary: Delete one person in database
-      description: ''
-      operationId: deleteOnePerson
-      produces:
-        - application/json
-        - application/xml
-      responses:
-        '200':
-          description: successful operation
-          schema:
-            $ref: '#/definitions/Person'
-        '400':
-          description: Invalid username supplied
-        '404':
-          description: User not found
+
   /person/{personId}:
     get:
       tags:
@@ -114,43 +79,12 @@ paths:
           description: Invalid ID supplied
         '404':
           description: Person not found
-    post:
-      tags:
-        - person
-      summary: Updates a person
-      description: ''
-      operationId: updatePerson
-      consumes:
-        - application/x-www-form-urlencoded
-      produces:
-        - application/json
-        - application/xml
-      parameters:
-        - name: personId
-          in: path
-          description: ID of person that needs to be updated
-          required: true
-          type: integer
-          format: int64
-        - name: name
-          in: formData
-          description: Updated name of the person
-          required: false
-          type: string
-        - name: status
-          in: formData
-          description: Updated status of the person
-          required: false
-          type: string
-      responses:
-        '405':
-          description: Invalid input
     delete:
       tags:
         - person
       summary: Deletes a person
       description: ''
-      operationId: deletePerson
+      operationId: deleteOnePerson
       produces:
         - application/json
         - application/xml
