@@ -8,7 +8,7 @@ public class Person {
     public Person(){}
 
     @Id
-    private Long id;
+    private Integer id;
 
     private String userName;
     private String firstName;
@@ -18,7 +18,7 @@ public class Person {
     private String phone;
     private Integer userStatus;
 
-    public Person(Long id, String userName, String firstName, String lastName, String email, String password, String phone, Integer userStatus) {
+    public Person(Integer id, String userName, String firstName, String lastName, String email, String password, String phone, Integer userStatus) {
         this.id = id;
         this.userName = userName;
         this.firstName = firstName;
@@ -29,7 +29,7 @@ public class Person {
         this.userStatus = userStatus;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -61,11 +61,11 @@ public class Person {
         return userStatus;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setUserName(String username) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 

@@ -9,9 +9,9 @@ import org.springframework.validation.annotation.Validated;
 
 public class PersonDto {
   @JsonProperty("id")
-  private Long id = null;
+  private Integer id = null;
 
-  @JsonProperty("username")
+  @JsonProperty("userName")
   private String userName = null;
 
   @JsonProperty("firstName")
@@ -32,23 +32,23 @@ public class PersonDto {
   @JsonProperty("userStatus")
   private Integer userStatus = null;
 
-  public PersonDto id(Long id) {
+  public PersonDto id(Integer id) {
     this.id = id;
     return this;
   }
 
   @ApiModelProperty(value = "")
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
-  public PersonDto username(String username) {
-    this.userName = username;
+  public PersonDto userName(String userName) {
+    this.userName = userName;
     return this;
   }
 

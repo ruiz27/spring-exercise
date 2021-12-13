@@ -5,9 +5,8 @@ import com.example.excercise.dto.PersonDto;
 import java.util.List;
 
 public interface IPersonService {
-    public List<PersonDto> getAllPeople();
-
+    List<PersonDto> getAllPeople();
+    PersonDto getPersonById(Integer id);
     void addOnePerson(PersonDto personDto);
-
-    void deleteOnePerson(PersonDto personDto);
+    PersonDto deleteOnePerson(Integer id);
 }

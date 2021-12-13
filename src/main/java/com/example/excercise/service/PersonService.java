@@ -41,6 +41,29 @@ public class PersonService implements IPersonService{
     }
 
     @Override
+    public PersonDto getPersonById(Integer id){
+        PersonDto personRequested = new PersonDto();
+        List<Person> personEntityList = personRepository.findAll();
+
+        for(int i=0; i<personEntityList.size(); i++){
+            Person person = personEntityList.get(i);
+
+           if(person.getId().equals(id)){
+
+            personRequested.setId(person.getId());
+            personRequested.setUserName(person.getUserName());
+            personRequested.setFirstName(person.getFirstName());
+            personRequested.setLastName(person.getLastName());
+            personRequested.setPassword(person.getPassword());
+            personRequested.setEmail(person.getEmail());
+            personRequested.setPhone(person.getPhone());
+            personRequested.setUserStatus(person.getUserStatus());
+           }
+        }
+        return personRequested;
+    }
+
+    @Override
     public void addOnePerson(PersonDto personDto) {
         Person person = new Person();
         person.setId(personDto.getId());
@@ -56,17 +79,28 @@ public class PersonService implements IPersonService{
     }
 
     @Override
-    public void deleteOnePerson(PersonDto personDto) {
-        Person person = new Person();
-        person.setId(personDto.getId());
-        person.setUserName(personDto.getUserName());
-        person.setFirstName(personDto.getFirstName());
-        person.setLastName(personDto.getLastName());
-        person.setPassword(personDto.getPassword());
-        person.setEmail(personDto.getEmail());
-        person.setPhone(personDto.getPhone());
-        person.setUserStatus(personDto.getUserStatus());
+    public PersonDto deleteOnePerson(Integer id){
+        PersonDto personRequested = new PersonDto();
+        List<Person> personEntityList = personRepository.findAll();
 
-        personRepository.delete(person);
+        for(int i=0; i<personEntityList.size(); i++){
+            Person person = personEntityList.get(i);
+
+            if(person.getId().equals(id)){
+
+                personRequested.setId(person.getId());
+                personRequested.setUserName(person.getUserName());
+                personRequested.setFirstName(person.getFirstName());
+                personRequested.setLastName(person.getLastName());
+                personRequested.setPassword(person.getPassword());
+                personRequested.setEmail(person.getEmail());
+                personRequested.setPhone(person.getPhone());
+                personRequested.setUserStatus(person.getUserStatus());
+
+                personRepository.delete(person);
+            }
+        }
+        return personRequested;
     }
+
 }

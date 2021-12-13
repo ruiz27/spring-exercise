@@ -1,12 +1,10 @@
 package com.example.excercise.api;
 
 import com.example.excercise.dto.PersonDto;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,13 +30,18 @@ public interface PersonApi {
         method = RequestMethod.GET)
     ResponseEntity<List<PersonDto>> getAllPeople();
 
+    @RequestMapping(value = "/person/{personId}",
+            produces = { "application/json", "application/xml" },
+            method = RequestMethod.GET)
+    ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return", required = true) @PathVariable("id") Integer id);
+
     @RequestMapping(value = "/person",
             produces = { "application/json", "application/xml" },
             method = RequestMethod.POST)
     void addPerson(@RequestBody PersonDto personDto);
 
-    @RequestMapping(value = "/person",
+    @RequestMapping(value = "/person/{personId}",
             produces = { "application/json", "application/xml" },
             method = RequestMethod.DELETE)
-    void deletePerson(@RequestBody PersonDto personDto);
+    ResponseEntity<PersonDto> deleteOnePerson(@ApiParam(value = "Person id to delete", required = true) @PathVariable("id") Integer id);
 }
