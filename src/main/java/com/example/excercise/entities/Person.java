@@ -1,10 +1,14 @@
 package com.example.excercise.entities;
 
+import lombok.*;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
+//@Data
+//@AllArgsConstructor
 @Entity
 @Table(name="Person")
 public class Person implements Serializable {
@@ -20,7 +24,6 @@ public class Person implements Serializable {
 
     public Person() {
     }
-
 
     public Integer getId() {
         return id;

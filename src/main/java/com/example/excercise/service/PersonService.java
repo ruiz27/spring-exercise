@@ -1,11 +1,11 @@
 package com.example.excercise.service;
+
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.entities.Person;
 import com.example.excercise.repository.PersonRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 
