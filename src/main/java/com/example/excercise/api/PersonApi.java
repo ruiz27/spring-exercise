@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-03T14:05:10.468Z")
 
 @Validated
@@ -26,22 +25,22 @@ public interface PersonApi {
         @ApiResponse(code = 404, message = "User not found") })
 
     @RequestMapping(value = "/person",
-        produces = { "application/json", "application/xml" }, 
+        produces = { "application/json"},
         method = RequestMethod.GET)
     ResponseEntity<List<PersonDto>> getAllPeople();
 
     @RequestMapping(value = "/person/{personId}",
-            produces = { "application/json", "application/xml" },
+            produces = { "application/json"},
             method = RequestMethod.GET)
     ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return", required = true) @PathVariable("id") Integer id);
 
     @RequestMapping(value = "/person",
-            produces = { "application/json", "application/xml" },
+            produces = { "application/json"},
             method = RequestMethod.POST)
     void addPerson(@RequestBody PersonDto personDto);
 
     @RequestMapping(value = "/person/{personId}",
-            produces = { "application/json", "application/xml" },
+            produces = { "application/json"},
             method = RequestMethod.DELETE)
     ResponseEntity<PersonDto> deleteOnePerson(@ApiParam(value = "Person id to delete", required = true) @PathVariable("id") Integer id);
 }
