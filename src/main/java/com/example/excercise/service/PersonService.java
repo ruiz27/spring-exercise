@@ -3,12 +3,15 @@ package com.example.excercise.service;
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.entity.Person;
 import com.example.excercise.repository.PersonRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@Slf4j
 public class PersonService implements IPersonService{
 
     private final PersonRepository personRepository;
@@ -18,13 +21,13 @@ public class PersonService implements IPersonService{
     }
 
     @Override
-    public List<PersonDto> getAllPeople() {
+    public List <PersonDto> getAllPeople() {
         List<PersonDto> personDtoList = new ArrayList<>();
         List<Person> personList = personRepository.findAll();
 
-        for(int i=0; i<personList.size(); i++){
-            Person person = personList.get(i);
-            PersonDto personDto = new PersonDto();
+        PersonDto personDto;
+        for(Person person : personList){
+            personDto = new PersonDto();
             personDto.setId(person.getId());
             personDto.setUserName(person.getUserName());
             personDto.setFirstName(person.getFirstName());
@@ -40,26 +43,21 @@ public class PersonService implements IPersonService{
         return personDtoList;
     }
 
-    @Override
     public PersonDto getPersonById(Integer id){
         PersonDto personRequested = new PersonDto();
-        List<Person> personEntityList = personRepository.findAll();
+        Optional <Person> personEntityList = personRepository.findById(id);
 
-        for(int i=0; i<personEntityList.size(); i++){
-            Person person = personEntityList.get(i);
-
-           if(person.getId().equals(id)){
-
-            personRequested.setId(person.getId());
-            personRequested.setUserName(person.getUserName());
-            personRequested.setFirstName(person.getFirstName());
-            personRequested.setLastName(person.getLastName());
-            personRequested.setPassword(person.getPassword());
-            personRequested.setEmail(person.getEmail());
-            personRequested.setPhone(person.getPhone());
-            personRequested.setUserStatus(person.getUserStatus());
-           }
-        }
+            if(personEntityList.isPresent()){
+                Person person = personEntityList.get();
+                personRequested.setId(person.getId());
+                personRequested.setUserName(person.getUserName());
+                personRequested.setFirstName(person.getFirstName());
+                personRequested.setLastName(person.getLastName());
+                personRequested.setPassword(person.getPassword());
+                personRequested.setEmail(person.getEmail());
+                personRequested.setPhone(person.getPhone());
+                personRequested.setUserStatus(person.getUserStatus());
+            }
         return personRequested;
     }
 
@@ -76,18 +74,16 @@ public class PersonService implements IPersonService{
         person.setUserStatus(personDto.getUserStatus());
 
         personRepository.save(person);
+        log.info("Persona creada");
     }
 
     @Override
     public PersonDto deleteOnePerson(Integer id){
         PersonDto personRequested = new PersonDto();
-        List<Person> personEntityList = personRepository.findAll();
+        Optional <Person> personEntityList = personRepository.findById(id);
 
-        for(int i=0; i<personEntityList.size(); i++){
-            Person person = personEntityList.get(i);
-
-            if(person.getId().equals(id)){
-
+            if(personEntityList.isPresent()){
+                Person person = personEntityList.get();
                 personRequested.setId(person.getId());
                 personRequested.setUserName(person.getUserName());
                 personRequested.setFirstName(person.getFirstName());
@@ -97,10 +93,9 @@ public class PersonService implements IPersonService{
                 personRequested.setPhone(person.getPhone());
                 personRequested.setUserStatus(person.getUserStatus());
 
-                personRepository.delete(person);
+                personRepository.delete(personEntityList.get());
+                log.info("Persona borrada");
             }
-        }
         return personRequested;
     }
-
 }
