@@ -40,12 +40,9 @@ public class PersonApiController implements PersonApi {
         iPersonService.addOnePerson(personDto);
     }
 
-    @RequestMapping(value = "/person",
-            produces = { "application/json", "application/xml" },
-            method = RequestMethod.DELETE)
-    @GetMapping("person/{personId}")
+    @DeleteMapping("person/{personId}")
     public ResponseEntity<PersonDto> deleteOnePerson(@ApiParam(value = "Person id to delete",required=true) @PathVariable("personId") Integer id){
-        return new ResponseEntity<PersonDto>(iPersonService.getPersonById(id),HttpStatus.OK);
+        return new ResponseEntity<PersonDto>(iPersonService.deleteOnePerson(id),HttpStatus.OK);
 
     }
 }
