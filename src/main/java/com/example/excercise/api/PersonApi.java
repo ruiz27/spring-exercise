@@ -3,6 +3,7 @@
 package com.example.excercise.api;
 
 import com.example.excercise.dto.PersonDto;
+import com.example.excercise.dto.ResponseDto;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +29,7 @@ public interface PersonApi {
             produces = { "application/json" },
             consumes = { "application/json" },
             method = RequestMethod.POST)
-    ResponseEntity<PersonDto> createPerson(@ApiParam(value = "Person object that needs to be added to the databse" ,required=true )   @RequestBody PersonDto body);
+    ResponseEntity<ResponseDto> createPerson(@ApiParam(value = "Person object that needs to be added to the databse" ,required=true )   @RequestBody PersonDto body);
 
 
     @ApiOperation(value = "Delete a person by id", nickname = "deleteOnePerson", notes = "", response = PersonDto.class, tags={ "person", })
@@ -39,7 +40,7 @@ public interface PersonApi {
     @RequestMapping(value = "/person/{id}",
             produces = { "application/json" },
             method = RequestMethod.DELETE)
-    ResponseEntity<PersonDto> deletePersonById(@ApiParam(value = "",required=true) @PathVariable("id") Integer id);
+    ResponseEntity<ResponseDto> deletePersonById(@ApiParam(value = "",required=true) @PathVariable("id") Integer id);
 
 
     @ApiOperation(value = "Get all people from database", nickname = "getAllPeople", notes = "", response = List.class, tags={ "person", })
