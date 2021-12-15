@@ -23,31 +23,26 @@ public class PersonApiController implements PersonApi {
 
     private static final Logger log = LoggerFactory.getLogger(PersonApiController.class);
 
-    private final ObjectMapper objectMapper;
 
-    private final HttpServletRequest request;
 
     private final PersonService service;
 
     @org.springframework.beans.factory.annotation.Autowired
-    public PersonApiController(ObjectMapper objectMapper, HttpServletRequest request, PersonService service) {
-        this.objectMapper = objectMapper;
-        this.request = request;
+    public PersonApiController(PersonService service) {
         this.service = service;
     }
     @PostMapping("/person")
-    public ResponseEntity<PersonDto> addPerson(@ApiParam(value = "Person object that needs to be added to the databse" ,required=true )  @RequestBody PersonDto body) {
-        return new ResponseEntity<PersonDto>(service.postOnePerson(body),HttpStatus.OK);
+    public ResponseEntity<PersonDto> createPerson(@ApiParam(value = "Person object that needs to be added to the databse" ,required=true )  @RequestBody PersonDto body) {
+        return new ResponseEntity<PersonDto>(service.createPerson(body),HttpStatus.OK);
     }
 
     @DeleteMapping("/person/{id}")
-    public ResponseEntity<PersonDto> deleteOnePerson(@ApiParam(value = "",required=true) @PathVariable("id") Integer id) {
-
-        return new ResponseEntity<PersonDto>(service.deleteOnePerson(id), HttpStatus.OK);
+    public ResponseEntity<PersonDto> deletePersonById(@ApiParam(value = "",required=true) @PathVariable("id") Integer id) {
+        return new ResponseEntity<PersonDto>(service.deletePersonById(id), HttpStatus.OK);
     }
     @GetMapping("/person")
-    public ResponseEntity<List<PersonDto>> getAllPeople() {
-        return new ResponseEntity<List<PersonDto>>(service.getAllPerson(), HttpStatus.OK);
+    public ResponseEntity<List<PersonDto>> getPeopleList() {
+        return new ResponseEntity<List<PersonDto>>(service.getPeopleList(), HttpStatus.OK);
     }
     @GetMapping("/person/{id}")
     public ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("id") Integer id) {
