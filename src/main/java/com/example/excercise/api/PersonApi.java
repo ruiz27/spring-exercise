@@ -1,13 +1,11 @@
 package com.example.excercise.api;
 
 import com.example.excercise.dto.PersonDto;
+import com.example.excercise.dto.ResponseDto;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,10 +35,10 @@ public interface PersonApi {
     @RequestMapping(value = "/person",
             produces = { "application/json"},
             method = RequestMethod.POST)
-    void addPerson(@RequestBody PersonDto personDto);
+    ResponseEntity<ResponseDto> addOnePerson(@ApiParam(value = "Created one person in database", required = true) @RequestBody PersonDto personDto);
 
     @RequestMapping(value = "/person/{personId}",
             produces = { "application/json"},
             method = RequestMethod.DELETE)
-    ResponseEntity<PersonDto> deleteOnePerson(@ApiParam(value = "Person id to delete", required = true) @PathVariable("id") Integer id);
+    ResponseEntity<ResponseDto> deleteOnePerson(@ApiParam(value = "Person id to delete", required = true) @PathVariable("id") Integer id);
 }

@@ -2,6 +2,7 @@ package com.example.excercise.controller;
 
 import com.example.excercise.api.PersonApi;
 import com.example.excercise.dto.PersonDto;
+import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.service.IPersonService;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
@@ -30,19 +31,23 @@ public class PersonApiController implements PersonApi {
 
     @GetMapping("person/{personId}")
     public ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("personId") Integer id){
-        return new ResponseEntity<PersonDto>(iPersonService.getPersonById(id),HttpStatus.OK);
+        PersonDto personDto = iPersonService.getPersonById(id);
+        if(personDto == null){
+            return new ResponseEntity<PersonDto>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<PersonDto>(personDto, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/person",
             produces = { "application/json", "application/xml" },
             method = RequestMethod.POST)
-    public void addPerson(@RequestBody PersonDto personDto) {
-        iPersonService.addOnePerson(personDto);
+    public ResponseEntity<ResponseDto> addOnePerson(PersonDto personDto) {
+        return new ResponseEntity<ResponseDto>(iPersonService.addOnePerson(personDto),HttpStatus.OK);
     }
 
     @DeleteMapping("person/{personId}")
-    public ResponseEntity<PersonDto> deleteOnePerson(@ApiParam(value = "Person id to delete",required=true) @PathVariable("personId") Integer id){
-        return new ResponseEntity<PersonDto>(iPersonService.deleteOnePerson(id),HttpStatus.OK);
+    public ResponseEntity<ResponseDto> deleteOnePerson(@ApiParam(value = "Person id to delete",required=true) @PathVariable("personId") Integer id){
+        return new ResponseEntity<ResponseDto>(iPersonService.deleteOnePerson(id),HttpStatus.OK);
 
     }
 }

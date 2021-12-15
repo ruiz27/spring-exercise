@@ -1,6 +1,7 @@
 package com.example.excercise.service;
 
 import com.example.excercise.dto.PersonDto;
+import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.entity.Person;
 import com.example.excercise.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -43,43 +44,52 @@ public class PersonService implements IPersonService{
         return personDtoList;
     }
 
+    @Override
     public PersonDto getPersonById(Integer id){
-        PersonDto personRequested = new PersonDto();
+        PersonDto personDto;
         Optional <Person> personEntityList = personRepository.findById(id);
 
             if(personEntityList.isPresent()){
+                personDto = new PersonDto();
                 Person person = personEntityList.get();
-                personRequested.setId(person.getId());
-                personRequested.setUserName(person.getUserName());
-                personRequested.setFirstName(person.getFirstName());
-                personRequested.setLastName(person.getLastName());
-                personRequested.setPassword(person.getPassword());
-                personRequested.setEmail(person.getEmail());
-                personRequested.setPhone(person.getPhone());
-                personRequested.setUserStatus(person.getUserStatus());
+                personDto.setId(person.getId());
+                personDto.setUserName(person.getUserName());
+                personDto.setFirstName(person.getFirstName());
+                personDto.setLastName(person.getLastName());
+                personDto.setPassword(person.getPassword());
+                personDto.setEmail(person.getEmail());
+                personDto.setPhone(person.getPhone());
+                personDto.setUserStatus(person.getUserStatus());
             }
-        return personRequested;
+            else{
+                personDto = null;
+            }
+        return personDto;
+    }
+
+   @Override
+    public ResponseDto addOnePerson(PersonDto personDto) {
+            ResponseDto responseDto = null;
+
+            Person person = new Person();
+            person.setId(personDto.getId());
+            person.setUserName(personDto.getUserName());
+            person.setFirstName(personDto.getFirstName());
+            person.setLastName(personDto.getLastName());
+            person.setPassword(personDto.getPassword());
+            person.setEmail(personDto.getEmail());
+            person.setPhone(personDto.getPhone());
+            person.setUserStatus(personDto.getUserStatus());
+            personRepository.save(person);
+
+            return null;
+
     }
 
     @Override
-    public void addOnePerson(PersonDto personDto) {
-        Person person = new Person();
-        person.setId(personDto.getId());
-        person.setUserName(personDto.getUserName());
-        person.setFirstName(personDto.getFirstName());
-        person.setLastName(personDto.getLastName());
-        person.setPassword(personDto.getPassword());
-        person.setEmail(personDto.getEmail());
-        person.setPhone(personDto.getPhone());
-        person.setUserStatus(personDto.getUserStatus());
-
-        personRepository.save(person);
-        log.info("Persona creada");
-    }
-
-    @Override
-    public PersonDto deleteOnePerson(Integer id){
+    public ResponseDto deleteOnePerson(Integer id){
         PersonDto personRequested = new PersonDto();
+        ResponseDto responseDto = null;
         Optional <Person> personEntityList = personRepository.findById(id);
 
             if(personEntityList.isPresent()){
@@ -94,8 +104,12 @@ public class PersonService implements IPersonService{
                 personRequested.setUserStatus(person.getUserStatus());
 
                 personRepository.delete(personEntityList.get());
+                responseDto =  new ResponseDto("Persona eliminada","OK");
                 log.info("Persona borrada");
             }
-        return personRequested;
+            else{
+                responseDto = new ResponseDto("Persona no encontrada","WARN");
+            }
+        return responseDto;
     }
 }
