@@ -24,34 +24,33 @@ paths:
       operationId: getAllPeople
       produces:
         - application/json
-        - application/xml
       responses:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/Person'
+            $ref: '#/definitions/PersonDto'
         '400':
-          description: Invalid username supplied
+          description: "Invalid username supplied"
         '404':
-          description: User not found
+          description: "User not found"
+
     post:
       tags:
         - person
-      summary: Post one person in database
+      summary: Created one person in database
       description: ''
-      operationId: postOnePerson
+      operationId: addOnePerson
       produces:
         - application/json
-        - application/xml
       responses:
         '201':
           description: created
           schema:
-            $ref: '#/definitions/Person'
+            $ref: '#/definitions/ResponseDto'
         '400':
-          description: Invalid username supplied
+          description: "Invalid username supplied"
         '404':
-          description: User not found
+          description: "User not found"
 
   /person/{personId}:
     get:
@@ -62,7 +61,6 @@ paths:
       operationId: getPersonById
       produces:
         - application/json
-        - application/xml
       parameters:
         - name: personId
           in: path
@@ -74,11 +72,11 @@ paths:
         '200':
           description: successful operation
           schema:
-            $ref: '#/definitions/Person'
+            $ref: '#/definitions/PersonEntityList'
         '400':
-          description: Invalid ID supplied
+          description: "Invalid ID supplied"
         '404':
-          description: Person not found
+          description: "Person not found"
     delete:
       tags:
         - person
@@ -87,7 +85,6 @@ paths:
       operationId: deleteOnePerson
       produces:
         - application/json
-        - application/xml
       parameters:
         - name: api_key
           in: header
@@ -101,12 +98,12 @@ paths:
           format: int64
       responses:
         '400':
-          description: Invalid ID supplied
+          description: "Invalid ID supplied"
         '404':
-          description: Person not found
+          description: "Person not found"
 
 definitions:
-  Person:
+  PersonDto:
     type: object
     properties:
       id:
@@ -128,6 +125,24 @@ definitions:
         type: integer
         format: int32
         description: User Status
+  ResponseDto:
+    type: object
+    properties:
+      code:
+        type:  integer
+        format: int
+      message:
+        type: string
+  PersonEntityList:
+    type: object
+    properties:
+      Person:
+        type: array
+        items:
+          $ref: '#/definitions/PersonDto'
+
+
 externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
+
