@@ -42,6 +42,10 @@ public class PersonApiController implements PersonApi {
     }
     @GetMapping("/person/{id}")
     public ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("id") Integer id) {
+        PersonDto personDto = service.getPersonById(id);
+        if(personDto == null){
+            return new ResponseEntity<PersonDto>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<PersonDto>(service.getPersonById(id), HttpStatus.OK);
     }
 
