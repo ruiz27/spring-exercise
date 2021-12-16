@@ -69,21 +69,25 @@ public class PersonService implements IPersonService{
 
    @Override
     public ResponseDto addOnePerson(PersonDto personDto) {
-            ResponseDto responseDto = null;
-
-            Person person = new Person();
-            person.setId(personDto.getId());
-            person.setUserName(personDto.getUserName());
-            person.setFirstName(personDto.getFirstName());
-            person.setLastName(personDto.getLastName());
-            person.setPassword(personDto.getPassword());
-            person.setEmail(personDto.getEmail());
-            person.setPhone(personDto.getPhone());
-            person.setUserStatus(personDto.getUserStatus());
-            personRepository.save(person);
-
-            return null;
-
+       ResponseDto responseDto = null;
+       Optional <Person> personEntityList = personRepository.findById(personDto.getId());
+           if (personEntityList.isPresent()){
+               responseDto = new ResponseDto("ID existente. Por favor, introduzca un ID libre.","KO");
+           }
+           else{
+               Person person = new Person();
+               person.setId(personDto.getId());
+               person.setUserName(personDto.getUserName());
+               person.setFirstName(personDto.getFirstName());
+               person.setLastName(personDto.getLastName());
+               person.setPassword(personDto.getPassword());
+               person.setEmail(personDto.getEmail());
+               person.setPhone(personDto.getPhone());
+               person.setUserStatus(personDto.getUserStatus());
+               personRepository.save(person);
+               responseDto = new ResponseDto("Persona creada correctamente", "OK");
+           }
+           return responseDto;
     }
 
     @Override

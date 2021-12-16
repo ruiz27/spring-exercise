@@ -3,6 +3,7 @@ package com.example.excercise.controller;
 import com.example.excercise.api.PersonApi;
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
+import com.example.excercise.entity.Person;
 import com.example.excercise.service.IPersonService;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +27,10 @@ public class PersonApiController implements PersonApi {
 
     @Override
     public ResponseEntity<List<PersonDto>> getAllPeople() {
-        return new ResponseEntity<List<PersonDto>>(iPersonService.getAllPeople(),HttpStatus.OK);
+        if(iPersonService.getAllPeople().isEmpty()){
+            return new ResponseEntity<List<PersonDto>>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<List<PersonDto>>(iPersonService.getAllPeople(), HttpStatus.OK);
     }
 
     @GetMapping("person/{personId}")
