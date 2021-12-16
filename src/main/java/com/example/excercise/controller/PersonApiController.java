@@ -38,6 +38,9 @@ public class PersonApiController implements PersonApi {
     }
     @GetMapping("/person")
     public ResponseEntity<List<PersonDto>> getPeopleList() {
+        if(service.getPeopleList().isEmpty()) {
+        return new ResponseEntity<List<PersonDto>>(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<List<PersonDto>>(service.getPeopleList(), HttpStatus.OK);
     }
     @GetMapping("/person/{id}")

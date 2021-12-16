@@ -3,6 +3,7 @@ package com.example.excercise.service;
 import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.entities.Person;
+import com.example.excercise.mapper.PersonMapper;
 import com.example.excercise.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,9 @@ import java.util.Optional;
 public class PersonService implements IPersonService {
 
     private final PersonRepository personRepository;
-
     public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
+
     }
 
     @Override
@@ -27,47 +28,22 @@ public class PersonService implements IPersonService {
         List<PersonDto> personDtoList = new ArrayList();
         List<Person> personEntityList = personRepository.findAll();
         for (Person person : personEntityList) {
-            personDto = new PersonDto();
-            personDto.setId(person.getId());
-            personDto.setUsername(person.getUsername());
-            personDto.setFirstName(person.getFirstname());
-            personDto.setLastName(person.getLastname());
-            personDto.setEmail(person.getEmail());
-            personDto.setPassword(person.getPassword());
-            personDto.setPhone(person.getPhone());
-            personDto.setUserStatus(person.getUserstatus());
-
+            personDto = PersonMapper.INSTANCIA.personToPersonDto(person);
             personDtoList.add(personDto);
         }
         return personDtoList;
     }
 
     @Override
-    public ResponseDto createPerson(PersonDto body) {
+    public ResponseDto createPerson(PersonDto personDto) {
         ResponseDto response = new ResponseDto();
-        Person personAdded = new Person();
-        PersonDto personDtoAdded= new PersonDto();
-        Optional<Person> person = personRepository.findById(body.getId());
+        Person personAdded;
+        Optional<Person> person = personRepository.findById(personDto.getId());
+
         if(!person.isPresent()) {
             log.debug("Se realizará el registro");
-            personAdded.setId(body.getId());
-            personAdded.setUsername(body.getUsername());
-            personAdded.setFirstname(body.getFirstName());
-            personAdded.setLastname(body.getLastName());
-            personAdded.setEmail(body.getEmail());
-            personAdded.setPassword(body.getPassword());
-            personAdded.setPhone(body.getPhone());
-            personAdded.setUserstatus(body.getUserStatus());
+            personAdded = PersonMapper.INSTANCIA.personDtoToPerson(personDto);
             personRepository.save(personAdded);
-
-            personDtoAdded.setId(personAdded.getId());
-            personDtoAdded.setUsername(personAdded.getUsername());
-            personDtoAdded.setFirstName(personAdded.getFirstname());
-            personDtoAdded.setLastName(personAdded.getLastname());
-            personDtoAdded.setEmail(personAdded.getEmail());
-            personDtoAdded.setPassword(personAdded.getPassword());
-            personDtoAdded.setPhone(personAdded.getPhone());
-            personDtoAdded.setUserStatus(personAdded.getUserstatus());
 
             log.debug("Registro realizado con éxito");
             response.setCode(4);
@@ -109,17 +85,10 @@ public class PersonService implements IPersonService {
     public PersonDto getPersonById(Integer id) {
         log.debug("ini endpoint getPersonById");
        PersonDto personRequestedDto = new PersonDto();
+       Person personRequestedEntity =new Person();
        Optional<Person> personRequested = personRepository.findById(id);
        if(personRequested.isPresent()) {
-           Person personFound = personRequested.get();
-           personRequestedDto.setId(personFound.getId());
-           personRequestedDto.setUsername(personFound.getUsername());
-           personRequestedDto.setFirstName(personFound.getFirstname());
-           personRequestedDto.setLastName(personFound.getLastname());
-           personRequestedDto.setEmail(personFound.getEmail());
-           personRequestedDto.setPassword(personFound.getPassword());
-           personRequestedDto.setPhone(personFound.getPhone());
-           personRequestedDto.setUserStatus(personFound.getUserstatus());
+           personRequestedDto = PersonMapper.INSTANCIA.personToPersonDto(personRequestedEntity);
            log.info("Se ha encontrado la persona");
        }
         log.debug("Se ha encontrado la persona en la persistencia de datos correctamente.");
