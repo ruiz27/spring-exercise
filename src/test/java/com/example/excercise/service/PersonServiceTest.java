@@ -2,12 +2,14 @@ package com.example.excercise.service;
 
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.repository.PersonRepository;
+import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-@RunWith(org.mockito.junit.MockitoJUnitRunner.class)
+
 public class PersonServiceTest {
 
     @Mock
@@ -15,6 +17,11 @@ public class PersonServiceTest {
 
     @InjectMocks
     PersonService personService;
+
+    @Before
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void whenAddOnePersonThenResultOk(){
