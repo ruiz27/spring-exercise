@@ -4,7 +4,7 @@ import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.entity.Person;
 import com.example.excercise.repository.PersonRepository;
-import net.bytebuddy.dynamic.DynamicType;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -12,15 +12,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonServiceTest {
 
@@ -67,33 +62,55 @@ public class PersonServiceTest {
 
     @Test
     public void whenDeleteOnePersonThenResultOk(){
-
-        personService.deleteOnePerson(personDto.getId());
+        Mockito.when(personRepository.findById(1)).thenReturn(Optional.of(new Person()));
+        //when
+        ResponseDto responseDto = personService.deleteOnePerson(personDto.getId());
+        //then
+        assertEquals("OK",responseDto.getCode());
     }
 
     @Test
     public void whenDeleteOnePersonNotFoundThenResultKo(){
-
+        Mockito.when(personRepository.findById(1)).thenReturn(Optional.empty());
+        // when
+        ResponseDto responseDto = personService.deleteOnePerson(personDto.getId());
+        // then
+        assertEquals("WARN",responseDto.getCode());
     }
 
     @Test
     public void whenGetPersonByIdThenResultOk(){
+        Mockito.when(personRepository.findById(1)).thenReturn(Optional.of(new Person()));
+        // when
+        personDto = personService.getPersonById(personDto.getId());
+        // then
 
     }
 
     @Test
     public void whenGetPersonByIdNotFoundThenResultKo(){
+        Mockito.when(personRepository.findById(1)).thenReturn(Optional.empty());
+        // when
+        personDto = personService.getPersonById(personDto.getId());
+        // then
 
     }
 
     @Test
     public void whenGetAllPeopleThenResultOk(){
-        //when(personRepository.findAll()).thenReturn(Arrays.asList(personDto));
-        assertNotNull(personService.getAllPeople());
+        Mockito.when(personRepository.findAll()).thenReturn(List.of(new Person()));
+        // when
+        List <PersonDto> personDtoList = personService.getAllPeople();
+        // then
+
     }
 
     @Test
     public void whenGetAllPeopleIsEmptyThenResultKo(){
+        Mockito.when(personRepository.findAll()).thenReturn(List.of(new Person()));
+        // when
+        List <PersonDto> personDtoList = null;
+        // then
 
     }
 }
