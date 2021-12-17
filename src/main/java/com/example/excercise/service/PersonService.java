@@ -20,7 +20,6 @@ public class PersonService implements IPersonService {
     private final PersonMapper personMapper;
     public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
         this.personRepository = personRepository;
-
         this.personMapper = personMapper;
     }
 
@@ -50,16 +49,14 @@ public class PersonService implements IPersonService {
             log.debug("Registro realizado con éxito");
             response.setCode(4);
             response.setMessage("La persona se ha añadido a la base de datos");
-            return response;
         }else{
             log.debug("No se ha añadido,la persona ya existía en la base de datos");
             log.info("No se ha añadido,la persona ya existía en la base de datos");
 
             response.setCode(1);
             response.setMessage("ERROR, la persona ya existe en la base de datos");
-            return response;
         }
-
+        return response;
     }
 
     @Override

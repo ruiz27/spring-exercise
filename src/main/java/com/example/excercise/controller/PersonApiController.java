@@ -21,19 +21,26 @@ public class PersonApiController implements PersonApi {
 
     private static final Logger log = LoggerFactory.getLogger(PersonApiController.class);
     private final PersonService service;
-
-    public PersonApiController(PersonService service) {
+    private PersonDto personDto;
+    public PersonApiController(PersonService service, PersonDto personDto) {
         this.service = service;
-
+        this.personDto = personDto;
     }
 
     @PostMapping("/person")
     public ResponseEntity<ResponseDto> createPerson(@ApiParam(value = "Person object that needs to be added to the databse" ,required=true )  @RequestBody PersonDto personDto) {
+        if(service.getPeopleList().contains(personDto)){
+            return new ResponseEntity<ResponseDto>(service.createPerson(personDto),HttpStatus.EXPECTATION_FAILED);
+        }
         return new ResponseEntity<ResponseDto>(service.createPerson(personDto),HttpStatus.OK);
     }
 
     @DeleteMapping("/person/{id}")
     public ResponseEntity<ResponseDto> deletePersonById(@ApiParam(value = "",required=true) @PathVariable("id") Integer id) {
+        personDto = service.getPersonById(id);
+        if(personDto == null){
+            return new ResponseEntity<ResponseDto>(service.deletePersonById(id), HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity<ResponseDto>(service.deletePersonById(id), HttpStatus.OK);
     }
     @GetMapping("/person")
@@ -45,7 +52,7 @@ public class PersonApiController implements PersonApi {
     }
     @GetMapping("/person/{id}")
     public ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("id") Integer id) {
-        PersonDto personDto = service.getPersonById(id);
+        personDto = service.getPersonById(id);
         if(personDto == null){
             return new ResponseEntity<PersonDto>(HttpStatus.NOT_FOUND);
         }
