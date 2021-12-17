@@ -28,8 +28,8 @@ public class PersonApiController implements PersonApi {
     }
 
     @PostMapping("/person")
-    public ResponseEntity<ResponseDto> createPerson(@ApiParam(value = "Person object that needs to be added to the databse" ,required=true )  @RequestBody PersonDto body) {
-        return new ResponseEntity<ResponseDto>(service.createPerson(body),HttpStatus.OK);
+    public ResponseEntity<ResponseDto> createPerson(@ApiParam(value = "Person object that needs to be added to the databse" ,required=true )  @RequestBody PersonDto personDto) {
+        return new ResponseEntity<ResponseDto>(service.createPerson(personDto),HttpStatus.OK);
     }
 
     @DeleteMapping("/person/{id}")

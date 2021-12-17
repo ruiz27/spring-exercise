@@ -17,9 +17,11 @@ import java.util.Optional;
 public class PersonService implements IPersonService {
 
     private final PersonRepository personRepository;
-    public PersonService(PersonRepository personRepository) {
+    private final PersonMapper personMapper;
+    public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
         this.personRepository = personRepository;
 
+        this.personMapper = personMapper;
     }
 
     @Override
@@ -28,7 +30,7 @@ public class PersonService implements IPersonService {
         List<PersonDto> personDtoList = new ArrayList();
         List<Person> personEntityList = personRepository.findAll();
         for (Person person : personEntityList) {
-            personDto = PersonMapper.INSTANCIA.personToPersonDto(person);
+            personDto = personMapper.personToPersonDto(person);
             personDtoList.add(personDto);
         }
         return personDtoList;
@@ -42,7 +44,7 @@ public class PersonService implements IPersonService {
 
         if(!person.isPresent()) {
             log.debug("Se realizará el registro");
-            personAdded = PersonMapper.INSTANCIA.personDtoToPerson(personDto);
+            personAdded = personMapper.personDtoToPerson(personDto);
             personRepository.save(personAdded);
 
             log.debug("Registro realizado con éxito");
@@ -88,7 +90,7 @@ public class PersonService implements IPersonService {
        Person personRequestedEntity =new Person();
        Optional<Person> personRequested = personRepository.findById(id);
        if(personRequested.isPresent()) {
-           personRequestedDto = PersonMapper.INSTANCIA.personToPersonDto(personRequestedEntity);
+           personRequestedDto = personMapper.personToPersonDto(personRequested.get());
            log.info("Se ha encontrado la persona");
        }
         log.debug("Se ha encontrado la persona en la persistencia de datos correctamente.");

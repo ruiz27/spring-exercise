@@ -29,7 +29,7 @@ public interface PersonApi {
             produces = { "application/json" },
             consumes = { "application/json" },
             method = RequestMethod.POST)
-    ResponseEntity<ResponseDto> createPerson(@ApiParam(value = "Person object that needs to be added to the databse" ,required=true )   @RequestBody PersonDto body);
+    ResponseEntity<ResponseDto> createPerson(@ApiParam(value = "Person object that needs to be added to the databse" ,required=true )   @RequestBody PersonDto personDto);
 
 
     @ApiOperation(value = "Delete a person by id", nickname = "deleteOnePerson", notes = "", response = PersonDto.class, tags={ "person", })
