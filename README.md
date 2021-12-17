@@ -19,7 +19,7 @@ de dominio Ejm. Coche, Persona o elementro que se quiera.
 4. Crear clases necesarias para resolver el flujo (api, controller, service, repository)
 5. Utilizar mapper structs
 6. Hacer test unitarios
-7. Hacer test controlelr
+7. Hacer test controller
 8. Crear tablas con liquibase
 9. Utilizar streams Java 8 
 10. Crear y utilizar una query con JPA
