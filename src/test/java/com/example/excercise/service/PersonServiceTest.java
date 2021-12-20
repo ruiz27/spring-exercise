@@ -4,18 +4,20 @@ import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.entity.Person;
 import com.example.excercise.repository.PersonRepository;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PersonServiceTest {
 
@@ -80,11 +82,12 @@ public class PersonServiceTest {
 
     @Test
     public void whenGetPersonByIdThenResultOk(){
-        Mockito.when(personRepository.findById(1)).thenReturn(Optional.of(new Person()));
+        Person person = new Person(1,"sonia.bencomo","Sonia","Bencomo Jorge","sonia.bencomo@vass.es","soniabencomo","651597587",1);
+        Mockito.when(personRepository.findById(1)).thenReturn(Optional.of(person));
         // when
         personDto = personService.getPersonById(personDto.getId());
         // then
-
+        assertEquals(1,person.getId());
     }
 
     @Test
@@ -93,24 +96,29 @@ public class PersonServiceTest {
         // when
         personDto = personService.getPersonById(personDto.getId());
         // then
-
+        Assert.assertNull(personDto);
     }
 
     @Test
     public void whenGetAllPeopleThenResultOk(){
-        Mockito.when(personRepository.findAll()).thenReturn(List.of(new Person()));
+        Person person = new Person(1,"sonia.bencomo","Sonia","Bencomo Jorge","sonia.bencomo@vass.es","soniabencomo","651597587",1);
+        List<Person> personList = new ArrayList<>();
+        personList.add(person);
+        Mockito.when(personRepository.findAll()).thenReturn(List.of(person));
         // when
-        List <PersonDto> personDtoList = personService.getAllPeople();
+        List<PersonDto> personDtoList = personService.getAllPeople();
         // then
-
+        assertEquals(1,personList.size());
     }
 
     @Test
     public void whenGetAllPeopleIsEmptyThenResultKo(){
-        Mockito.when(personRepository.findAll()).thenReturn(List.of(new Person()));
+        Person person = new Person();
+        List<Person> personList = new ArrayList<>();
+        Mockito.when(personRepository.findAll()).thenReturn(List.of(person));
         // when
-        List <PersonDto> personDtoList = null;
+        List <PersonDto> personDtoList = personService.getAllPeople();
         // then
-
+        assertEquals(0,personList.size());
     }
 }
