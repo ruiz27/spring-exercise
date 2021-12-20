@@ -26,7 +26,7 @@ public class PersonService implements IPersonService {
     @Override
     public List<PersonDto> getPeopleList() {
         PersonDto personDto;
-        List<PersonDto> personDtoList = new ArrayList();
+        List<PersonDto> personDtoList = new ArrayList<>();
         List<Person> personEntityList = personRepository.findAll();
         for (Person person : personEntityList) {
             personDto = personMapper.personToPersonDto(person);
@@ -84,7 +84,6 @@ public class PersonService implements IPersonService {
     public PersonDto getPersonById(Integer id) {
         log.debug("ini endpoint getPersonById");
        PersonDto personRequestedDto = new PersonDto();
-       Person personRequestedEntity =new Person();
        Optional<Person> personRequested = personRepository.findById(id);
        if(personRequested.isPresent()) {
            personRequestedDto = personMapper.personToPersonDto(personRequested.get());
