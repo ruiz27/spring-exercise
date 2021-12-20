@@ -36,9 +36,19 @@ public class PersonDto {
   @JsonProperty("userStatus")
   private Integer userStatus = null;
 
-  public PersonDto id(Integer id) {
+  public PersonDto() {
+
+  }
+
+  public PersonDto(Integer id, String username, String firstName, String lastName, String email, String password, String phone, Integer userStatus) {
     this.id = id;
-    return this;
+    this.username = username;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.password = password;
+    this.phone = phone;
+    this.userStatus = userStatus;
   }
 }
 
