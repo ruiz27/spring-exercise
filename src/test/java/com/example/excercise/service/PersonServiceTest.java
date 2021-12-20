@@ -10,17 +10,19 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 
 @RunWith(org.mockito.junit.MockitoJUnitRunner.class)
 public class PersonServiceTest {
 
-    private Person person;
     private PersonDto personDto;
 
     @InjectMocks
@@ -37,8 +39,8 @@ public class PersonServiceTest {
     @BeforeEach
     public void init() {
         MockitoAnnotations.initMocks(this);
+        personDto = new PersonDto();
         personDto.setId(1);
-        personDto.setUsername("test");
         personDto.setUsername("test");
         personDto.setFirstName("test");
         personDto.setLastName("test");
@@ -46,27 +48,24 @@ public class PersonServiceTest {
         personDto.setPassword("test");
         personDto.setPhone("32452623");
         personDto.setUserStatus(2);
+
     }
     @Test
     public void whenGetPeopleListThenReturnList(){
-        Mockito.when(personRepository.findAll()).thenReturn(List.of(person));
+        //Given
+        List<Person> list = new ArrayList<>();
+        Person person1 = new Person(2,"pluis","pepe","luis","pluis@mail.com","12345","54565434",1);
+        list.add(person1);
         //When
-
+        when(personRepository.findAll()).thenReturn(list);
         //Then
-
+        assertEquals(1,personService.getPeopleList().size());
     }
-    @Test
-    public void whenGetEmptyPeopleListThenReturnError(){
 
-        //When
-
-        //Then
-
-    }
     @Test
     public void whenCreatePersonThenResultOk(){
-        Mockito.when(personRepository.findById(personDto.getId())).thenReturn(Optional.empty());
         //When
+        when(personRepository.findById(personDto.getId())).thenReturn(Optional.empty());
         ResponseDto responseDto = personService.createPerson(personDto);
         //Then
         assertEquals(4, responseDto.getCode());
@@ -74,45 +73,34 @@ public class PersonServiceTest {
 
     @Test
     public void whenCreatePersonThatExistsThenResultError(){
-
+        //Given
+        Person person1 = new Person(1,"pluis","pepe","luis","pluis@mail.com","12345","54565434",1);
         //When
-
+        when(personRepository.findById(1)).thenReturn(Optional.of(person1));
+        ResponseDto response = personService.createPerson(personDto);
         //Then
-
+        assertEquals(1, response.getCode());
     }
 
     @Test
     public void whenDeletePersonThatExistsThenResultOk(){
-
+        //Given
+        Person person1 = new Person(1,"pluis","pepe","luis","pluis@mail.com","12345","54565434",1);
         //When
-
+        when(personRepository.findById(1)).thenReturn(Optional.of(person1));
+        ResponseDto response = personService.deletePersonById(person1.getId());
         //Then
-
+        assertEquals(4, response.getCode());
     }
 
     @Test
-    public void whenDeletePersonThatNotExistsThenResultError(){
-
+    public void whenGetPersonThatExistsThenReturnPersonDto(){
+        //Given
+        Person person1 = new Person(1,"pluis","pepe","luis","pluis@mail.com","12345","54565434",1);
         //When
-
+        when(personRepository.findById(1)).thenReturn(Optional.of(person1));
         //Then
-
-    }
-    @Test
-    public void whenGetPersonThatExistsThenResultOk(){
-
-        //When
-
-        //Then
-
-    }
-    @Test
-    public void whenGetPersonThatNotExistsThenResultError(){
-
-        //When
-
-        //Then
-
+        assertEquals("pluis",person1.getUsername());
     }
 
 }
