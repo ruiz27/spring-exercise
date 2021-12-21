@@ -4,28 +4,32 @@ import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.service.IPersonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
+@ContextConfiguration(classes = {PersonApiController.class})
 @WebMvcTest()
 @AutoConfigureMockMvc(addFilters = false)
-@ContextConfiguration(classes = PersonApiController.class)
+@RunWith(SpringRunner.class)
 public class PersonApiControllerTest {
 
     private static final Logger logger = LoggerFactory.getLogger(PersonApiControllerTest.class);
@@ -40,10 +44,8 @@ public class PersonApiControllerTest {
 
     private PersonDto personDto;
 
-    @BeforeEach
+    @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
-
         personDto = new PersonDto();
         personDto.setId(1);
         personDto.setPhone("651597587");
@@ -71,7 +73,6 @@ public class PersonApiControllerTest {
         logger.info("Response: " + mvcResult);*/
 
 
-
     }
 
     @Test
@@ -95,16 +96,17 @@ public class PersonApiControllerTest {
 
     @Test
     public void whenAddOnePerson() throws Exception {
-        Mockito.when(iPersonService.addOnePerson(personDto)).thenReturn(new ResponseDto("Persona creada correctamente.","OK"));
+        Mockito.when(iPersonService.addOnePerson(ArgumentMatchers.any())).thenReturn(new ResponseDto("Persona creada correctamente.", "OK"));
 
-        String mvcResult = mockMvc.perform(post("/person")
-                .contentType("application/json").content(objectMapper.writeValueAsString(personDto)))
-                .andExpect(status().is(HttpStatus.OK.value()))
-                .andReturn().getResponse().getContentAsString();
+        MvcResult mvcResult = mockMvc.perform(post("/v1/person")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(personDto))).andExpect(status().isOk())
+                .andReturn();
 
-        ResponseDto response = objectMapper.readValue(mvcResult, ResponseDto.class);
+        ResponseDto response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ResponseDto.class);
 
-        assertEquals(response.getCode(),"OK");
+        Assert.assertEquals(response.getCode(),"OK");
     }
 
     @Test

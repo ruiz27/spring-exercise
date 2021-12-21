@@ -5,20 +5,21 @@ import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.entity.Person;
 import com.example.excercise.repository.PersonRepository;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.BeforeEach;
-
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
+@RunWith(SpringRunner.class)
 public class PersonServiceTest {
 
     @Mock
@@ -29,10 +30,8 @@ public class PersonServiceTest {
 
     private PersonDto personDto;
 
-    @BeforeEach
+    @Before
     public void init() {
-        MockitoAnnotations.initMocks(this);
-
         personDto = new PersonDto();
         personDto.setId(1);
         personDto.setPhone("651597587");
@@ -87,7 +86,7 @@ public class PersonServiceTest {
         // when
         personDto = personService.getPersonById(personDto.getId());
         // then
-        assertEquals(1,person.getId());
+        assertEquals(Integer.valueOf(1), person.getId());
     }
 
     @Test

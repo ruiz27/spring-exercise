@@ -33,7 +33,6 @@ public class PersonApiController implements PersonApi {
         return new ResponseEntity<List<PersonDto>>(iPersonService.getAllPeople(), HttpStatus.OK);
     }
 
-    @GetMapping("person/{personId}")
     public ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("personId") Integer id){
         PersonDto personDto = iPersonService.getPersonById(id);
         if(personDto == null){
@@ -42,14 +41,10 @@ public class PersonApiController implements PersonApi {
         return new ResponseEntity<PersonDto>(personDto, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/person",
-            produces = { "application/json", "application/xml" },
-            method = RequestMethod.POST)
     public ResponseEntity<ResponseDto> addOnePerson(PersonDto personDto) {
         return new ResponseEntity<ResponseDto>(iPersonService.addOnePerson(personDto),HttpStatus.OK);
     }
 
-    @DeleteMapping("person/{personId}")
     public ResponseEntity<ResponseDto> deleteOnePerson(@ApiParam(value = "Person id to delete",required=true) @PathVariable("personId") Integer id){
         return new ResponseEntity<ResponseDto>(iPersonService.deleteOnePerson(id),HttpStatus.OK);
 
