@@ -2,53 +2,47 @@ package com.example.excercise.controller;
 
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
-import com.example.excercise.repository.PersonRepository;
 import com.example.excercise.service.IPersonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@Slf4j
+
+@WebMvcTest()
+@AutoConfigureMockMvc(addFilters = false)
+@ContextConfiguration(classes = PersonApiController.class)
 public class PersonApiControllerTest {
 
     private static final Logger logger = LoggerFactory.getLogger(PersonApiControllerTest.class);
 
-    @Mock
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
-    private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
-    @Mock
-    PersonRepository personRepository;
-
-    @InjectMocks
-    PersonApiController personApiController;
-
-    @Mock
+    @MockBean
     IPersonService iPersonService;
 
     private PersonDto personDto;
 
     @BeforeEach
     public void init() {
-        //MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.initMocks(this);
 
         personDto = new PersonDto();
         personDto.setId(1);
@@ -82,6 +76,15 @@ public class PersonApiControllerTest {
 
     @Test
     public void whenGetPersonByIdReturnPerson() throws Exception {
+       /* List<PersonDto> personDtoList = new ArrayList<>();
+        personDtoList.add(personDto);
+
+        Mockito.when(iPersonService.getPersonById(1)).thenReturn();
+        String mvcResult = mockMvc.perform(get("person/{personId}")
+                .contentType("application/json").content(objectMapper.writeValueAsString(personDto)))
+                .andExpect(status().is(HttpStatus.OK.value()))
+                .andReturn().getResponse().getContentAsString();*/
+
 
     }
 
@@ -92,15 +95,16 @@ public class PersonApiControllerTest {
 
     @Test
     public void whenAddOnePerson() throws Exception {
-        Mockito.when(iPersonService.addOnePerson(personDto)).thenReturn((ResponseDto) ResponseEntity.ok());
+        Mockito.when(iPersonService.addOnePerson(personDto)).thenReturn(new ResponseDto("Persona creada correctamente.","OK"));
+
         String mvcResult = mockMvc.perform(post("/person")
                 .contentType("application/json").content(objectMapper.writeValueAsString(personDto)))
                 .andExpect(status().is(HttpStatus.OK.value()))
                 .andReturn().getResponse().getContentAsString();
 
-        logger.info("Response: " + mvcResult);
+        ResponseDto response = objectMapper.readValue(mvcResult, ResponseDto.class);
 
-        assertThat(mvcResult).isEqualTo(personDto);
+        assertEquals(response.getCode(),"OK");
     }
 
     @Test
