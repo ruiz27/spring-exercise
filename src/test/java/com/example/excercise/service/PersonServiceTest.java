@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
@@ -17,10 +18,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 
-@RunWith(org.mockito.junit.MockitoJUnitRunner.class)
 public class PersonServiceTest {
 
     private PersonDto personDto;
@@ -57,15 +56,16 @@ public class PersonServiceTest {
         Person person1 = new Person(2,"pluis","pepe","luis","pluis@mail.com","12345","54565434",1);
         list.add(person1);
         //When
-        when(personRepository.findAll()).thenReturn(list);
+        Mockito.when(personRepository.findAll()).thenReturn(list);
         //Then
         assertEquals(1,personService.getPeopleList().size());
+
     }
 
     @Test
     public void whenCreatePersonThenResultOk(){
         //When
-        when(personRepository.findById(personDto.getId())).thenReturn(Optional.empty());
+        Mockito.when(personRepository.findById(personDto.getId())).thenReturn(Optional.empty());
         ResponseDto responseDto = personService.createPerson(personDto);
         //Then
         assertEquals(4, responseDto.getCode());
@@ -76,7 +76,7 @@ public class PersonServiceTest {
         //Given
         Person person1 = new Person(1,"pluis","pepe","luis","pluis@mail.com","12345","54565434",1);
         //When
-        when(personRepository.findById(1)).thenReturn(Optional.of(person1));
+        Mockito.when(personRepository.findById(1)).thenReturn(Optional.of(person1));
         ResponseDto response = personService.createPerson(personDto);
         //Then
         assertEquals(1, response.getCode());
@@ -87,18 +87,30 @@ public class PersonServiceTest {
         //Given
         Person person1 = new Person(1,"pluis","pepe","luis","pluis@mail.com","12345","54565434",1);
         //When
-        when(personRepository.findById(1)).thenReturn(Optional.of(person1));
+        Mockito.when(personRepository.findById(1)).thenReturn(Optional.of(person1));
         ResponseDto response = personService.deletePersonById(person1.getId());
         //Then
         assertEquals(4, response.getCode());
     }
+    @Test
+    public void whenDeletePersonThatNotExistsThenResultError(){
+        //Given
+        Person person1 = new Person(1,"pluis","pepe","luis","pluis@mail.com","12345","54565434",1);
+        //When
+        Mockito.when(personRepository.findById(1)).thenReturn(Optional.empty());
+        ResponseDto response = personService.deletePersonById(person1.getId());
+        //Then
+        assertEquals(1, response.getCode());
+    }
+
 
     @Test
     public void whenGetPersonThatExistsThenReturnPersonDto(){
         //Given
         Person person1 = new Person(1,"pluis","pepe","luis","pluis@mail.com","12345","54565434",1);
         //When
-        when(personRepository.findById(1)).thenReturn(Optional.of(person1));
+        Mockito.when(personRepository.findById(1)).thenReturn(Optional.of(person1));
+        personService.getPersonById(person1.getId());
         //Then
         assertEquals("pluis",person1.getUsername());
     }
