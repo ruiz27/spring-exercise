@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 public class PersonApiControllerTest {
 
-    @MockBean
+
     private PersonDto personDto1;
 
     private ObjectMapper objectMapper = new ObjectMapper();

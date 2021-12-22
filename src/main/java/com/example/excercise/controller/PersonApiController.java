@@ -21,10 +21,10 @@ public class PersonApiController implements PersonApi {
 
     private static final Logger log = LoggerFactory.getLogger(PersonApiController.class);
     private final PersonService service;
-    private PersonDto personDto;
-    public PersonApiController(PersonService service, PersonDto personDto) {
+
+    public PersonApiController(PersonService service) {
         this.service = service;
-        this.personDto = personDto;
+
     }
 
     @PostMapping("/person")
@@ -45,6 +45,7 @@ public class PersonApiController implements PersonApi {
     }
     @GetMapping("/person/{id}")
     public ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("id") Integer id) {
+        PersonDto personDto = new PersonDto();
         personDto = service.getPersonById(id);
         if(personDto == null){
             return new ResponseEntity<PersonDto>(HttpStatus.NOT_FOUND);
