@@ -4,7 +4,6 @@ import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.service.IPersonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,12 +15,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -43,6 +49,7 @@ public class PersonApiControllerTest {
     IPersonService iPersonService;
 
     private PersonDto personDto;
+    private PersonDto personDto1;
 
     @Before
     public void init() {
@@ -55,42 +62,79 @@ public class PersonApiControllerTest {
         personDto.setLastName("Bencomo Jorge");
         personDto.setFirstName("Sonia");
         personDto.setUserName("sonia.bencomo");
+
+        personDto1 = new PersonDto();
+        personDto1.setId(2);
+        personDto1.setPhone("662441317");
+        personDto1.setEmail("marina.bencomo@vass.es");
+        personDto1.setPassword("marinabencomo");
+        personDto1.setUserStatus(1);
+        personDto1.setLastName("Bencomo Jorge");
+        personDto1.setFirstName("Marina");
+        personDto1.setUserName("marina.bencomo");
     }
 
     @Test
-    public void whenGetAllPeopleReturnAllPeople(){
+    public void whenGetAllPeopleReturnAllPeople() throws Exception {
+        List<PersonDto> personList = new ArrayList<>();
+        personList.add(personDto);
 
+        Mockito.when(iPersonService.getAllPeople()).thenReturn(personList);
+        MvcResult mvcResult = mockMvc.perform(get("/v1/person")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(personList))).andExpect(status().isOk())
+                .andReturn();
+
+        List<PersonDto> response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class);
+
+        assertEquals(personList.size(), response.size());
     }
 
     @Test
-    public void whenGetAllPeopleReturnNotFound(){
-        /*List<PersonDto> personList = new ArrayList<>();
-        Mockito.when(iPersonService.getAllPeople()).thenReturn(List.of(personDto));
-        String mvcResult = mockMvc.perform(("/person").contentType("application/json").content(objectMapper.writeValueAsString(personDto)))
-                .andExpect(status().is(HttpStatus.OK.value()))
-                .andReturn().getResponse().getContentAsString();
+    public void whenGetAllPeopleReturnNotFound() throws Exception{
+        List<PersonDto> personList = new ArrayList<>();
+        Mockito.when(iPersonService.getAllPeople()).thenReturn(personList);
+        MvcResult mvcResult = mockMvc.perform(get("/v1/person")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(personList))).andExpect(status().isNotFound())
+                .andReturn();
 
-        logger.info("Response: " + mvcResult);*/
+        String response = mvcResult.getResponse().getContentAsString();
 
-
+        assertEquals("",response);
     }
 
     @Test
     public void whenGetPersonByIdReturnPerson() throws Exception {
-       /* List<PersonDto> personDtoList = new ArrayList<>();
-        personDtoList.add(personDto);
+       Mockito.when(iPersonService.getPersonById(1)).thenReturn(personDto);
 
-        Mockito.when(iPersonService.getPersonById(1)).thenReturn();
-        String mvcResult = mockMvc.perform(get("person/{personId}")
-                .contentType("application/json").content(objectMapper.writeValueAsString(personDto)))
-                .andExpect(status().is(HttpStatus.OK.value()))
-                .andReturn().getResponse().getContentAsString();*/
+        MvcResult mvcResult = mockMvc.perform(get("/v1/person/{id}","1")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(personDto))).andExpect(status().isOk())
+                .andReturn();
 
+        PersonDto response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), PersonDto.class);
 
+        assertEquals(response.getId(),personDto.getId());
     }
 
     @Test
-    public void whenGetPersonByIdReturnNotFound(){
+    public void whenGetPersonByIdReturnNotFound() throws Exception{
+        Mockito.when(iPersonService.getPersonById(ArgumentMatchers.any())).thenReturn(null);
+
+        MvcResult mvcResult = mockMvc.perform(get("/v1/person/{id}","1")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(personDto)))
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        String response = mvcResult.getResponse().getContentAsString();
+
+        assertEquals("",response);
 
     }
 
@@ -106,11 +150,22 @@ public class PersonApiControllerTest {
 
         ResponseDto response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ResponseDto.class);
 
-        Assert.assertEquals(response.getCode(),"OK");
+        assertEquals(response.getCode(),"OK");
     }
 
     @Test
-    public void whenDeleteOnePerson(){
+    public void whenDeleteOnePerson() throws Exception {
+        Mockito.when(iPersonService.deleteOnePerson(ArgumentMatchers.any())).thenReturn(new ResponseDto("Persona borrada correctamente.", "OK"));
+
+        MvcResult mvcResult = mockMvc.perform(delete("/v1/person/{id}","1")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(personDto))).andExpect(status().isOk())
+                .andReturn();
+
+        ResponseDto response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), ResponseDto.class);
+
+        assertEquals(response.getCode(),"OK");
 
     }
 }
