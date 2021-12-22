@@ -29,18 +29,11 @@ public class PersonApiController implements PersonApi {
 
     @PostMapping("/person")
     public ResponseEntity<ResponseDto> createPerson(@ApiParam(value = "Person object that needs to be added to the databse" ,required=true )  @RequestBody PersonDto personDto) {
-        if(service.getPeopleList().contains(personDto)){
-            return new ResponseEntity<ResponseDto>(service.createPerson(personDto),HttpStatus.EXPECTATION_FAILED);
-        }
         return new ResponseEntity<ResponseDto>(service.createPerson(personDto),HttpStatus.OK);
     }
 
     @DeleteMapping("/person/{id}")
     public ResponseEntity<ResponseDto> deletePersonById(@ApiParam(value = "",required=true) @PathVariable("id") Integer id) {
-        personDto = service.getPersonById(id);
-        if(personDto == null){
-            return new ResponseEntity<ResponseDto>(service.deletePersonById(id), HttpStatus.NOT_FOUND);
-        }
         return new ResponseEntity<ResponseDto>(service.deletePersonById(id), HttpStatus.OK);
     }
     @GetMapping("/person")
