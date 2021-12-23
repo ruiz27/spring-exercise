@@ -3,9 +3,10 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <changeSet  id="1"  author="Sonia">
+    <changeSet  id="2"  author="Sonia">
         <insert tableName="PersonAttributes">
-            <column name="age" valueNumeric="25"/>
+            <column name="id" value="1"/>
+            <column name="age" value="25"/>
             <column name="weight" value="62"/>
             <column name="height" value="168"/>
             <column name="nationality" value="Spain"/>
