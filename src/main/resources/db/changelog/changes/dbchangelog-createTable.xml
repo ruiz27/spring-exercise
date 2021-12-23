@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet  id="1"  author="Sonia">
+        <createTable  tableName="PersonAttributes">
+            <column  name="age"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="weight"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="height"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+            <column  name="nationality"  type="varchar(50)">
+                <constraints  nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
