@@ -3,7 +3,8 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <include file="db/changelog/dbchangelogTablePerson.xml" relativeToChangelogFile="false"/>
-    <include file="db/changelog/dbchangelogTablePersonAttribute.xml" relativeToChangelogFile="false"/>
 
+    <include file="db/changelog/DBChanges/TablePersonAttribute.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/DBChanges/ModTablePerson.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/DBChanges/InsertPersonAttribute.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
