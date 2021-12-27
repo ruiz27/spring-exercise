@@ -18,6 +18,10 @@ public class Person {
     private String phone;
     private Integer userStatus;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "attributes", referencedColumnName = "id_attributes")
+    private PersonAttributes attributes;
+
     public Person(Integer id, String userName, String firstName, String lastName, String email, String password, String phone, Integer userStatus) {
         this.id = id;
         this.userName = userName;
