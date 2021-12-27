@@ -11,7 +11,7 @@
         <addForeignKeyConstraint  baseColumnNames="attributes"
                                   baseTableName="Person"
                                   constraintName="addAttributesId"
-                                  referencedColumnNames="id"
+                                  referencedColumnNames="id_attributes"
                                   referencedTableName="PersonAttributes"/>
     </changeSet>
 </databaseChangeLog>
