@@ -4,8 +4,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <include file="db/changelog/DBChanges/TablePersonAttribute.xml" relativeToChangelogFile="false"/>
-    <include file="db/changelog/DBChanges/ModTablePerson.xml" relativeToChangelogFile="false"/>
-    <include file="db/changelog/DBChanges/InsertPersonAttribute.xml" relativeToChangelogFile="false"/>
-    <include file="db/changelog/DBChanges/InsertAttributeIntoPerson.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/DBChanges/entity_Person.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/DBChanges/entity_PersonAttribute.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/DBChanges/entity_constraints_Person.xml" relativeToChangelogFile="false"/>
+    <include file="db/changelog/DBChanges/entity_attributes_Person.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
