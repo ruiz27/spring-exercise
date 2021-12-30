@@ -8,5 +8,17 @@
             <column  name="idattribute"  valueNumeric="001"/>
             <column name="attribute" value="respetuoso" />
         </insert>
+        <insert tableName="PERSONATTRIBUTE">
+            <column  name="idattribute"  valueNumeric="002"/>
+            <column name="attribute" value="empático" />
+        </insert>
+        <insert tableName="PERSONATTRIBUTE">
+            <column  name="idattribute"  valueNumeric="003"/>
+            <column name="attribute" value="flexible" />
+        </insert>
+        <insert tableName="PERSONATTRIBUTE">
+            <column  name="idattribute"  valueNumeric="004"/>
+            <column name="attribute" value="ambicioso" />
+        </insert>
     </changeSet>
 </databaseChangeLog>

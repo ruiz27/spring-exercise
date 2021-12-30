@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
 
+
+
 @Validated
 @javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2021-12-09T11:32:42.208Z")
 
@@ -35,6 +37,9 @@ public class PersonDto {
 
   @JsonProperty("userStatus")
   private Integer userStatus = null;
+
+  @JsonProperty("idAttribute")
+  private Integer id_Attribute = null;
 
   public PersonDto() {
 

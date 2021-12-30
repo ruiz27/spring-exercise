@@ -2,9 +2,7 @@ package com.example.excercise.entities;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Getter@Setter
@@ -20,6 +18,10 @@ public class Person implements Serializable {
     private String password;
     private String phone;
     private Integer userstatus;
+
+    @OneToOne
+    @JoinColumn(unique = true)
+    private PersonAttribute personAttribute;
 
     public Person() {
     }

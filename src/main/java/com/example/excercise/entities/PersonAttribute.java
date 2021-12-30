@@ -5,17 +5,21 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+
 @Getter
 @Setter
 @Entity
 @Table(name="PersonAttribute")
 public class PersonAttribute {
 
-    private int id;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idAttribute")
     private int idAttribute;
+    @Column(name = "attribute")
     private String attribute;
+
+    @OneToOne(mappedBy = "personAttribute", fetch = FetchType.LAZY)
+    private Person person;
 
     public PersonAttribute() {
     }

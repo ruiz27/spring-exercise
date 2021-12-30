@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet  id="1"  author="vrodriguez">
+        <update tableName="PERSON" >
+            <column  name="id_attribute"  valueNumeric="001"/>
+            <where>id = 1</where>
+        </update>
+        <update tableName="PERSON">
+            <column  name="id_attribute"  valueNumeric="004"/>
+            <where>id = 2</where>
+        </update>
+        <update tableName="PERSON">
+            <column  name="id_attribute"  valueNumeric="002"/>
+            <where>id = 3</where>
+        </update>
+        <update tableName="PERSON">
+            <column  name="id_attribute"  valueNumeric="004"/>
+            <where>id = 4</where>
+        </update>
+        <update tableName="PERSON">
+            <column  name="id_attribute"  valueNumeric="003"/>
+            <where>id = 5</where>
+        </update>
+        <update tableName="PERSON">
+            <column  name="id_attribute"  valueNumeric="001"/>
+            <where>id = 6</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>
