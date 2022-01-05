@@ -10,18 +10,27 @@ import java.io.Serializable;
 @Table(name="Person")
 public class Person implements Serializable {
     @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    @Column(name = "username")
     private String username;
+    @Column(name = "firstname")
     private String firstname;
+    @Column(name = "lastname")
     private String lastname;
+    @Column(name = "email")
     private String email;
+    @Column(name = "jhi_password")
     private String password;
+    @Column(name = "phone")
     private String phone;
+    @Column(name = "userStatus")
     private Integer userstatus;
 
     @OneToOne
-    @JoinColumn(unique = true)
-    private PersonAttribute personAttribute;
+    @JoinColumn( name = "id_attribute_id" , unique = true)
+    private PersonAttribute idAttribute;
 
     public Person() {
     }
