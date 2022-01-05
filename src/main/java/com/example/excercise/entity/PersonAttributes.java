@@ -15,9 +15,16 @@ public class PersonAttributes {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id_attributes;
 
+    @Column(name = "age")
     private String age;
+
+    @Column(name = "weight")
     private String weight;
+
+    @Column(name = "height")
     private String height;
+
+    @Column(name = "nationality")
     private String nationality;
 
     @OneToOne(mappedBy = "attributes", fetch = FetchType.LAZY)
