@@ -11,5 +11,26 @@
             <column name="height" value="168"/>
             <column name="nationality" value="Spain"/>
         </insert>
+        <insert tableName="PersonAttributes">
+            <column name="id_attributes" value="2"/>
+            <column name="age" value="29"/>
+            <column name="weight" value="60"/>
+            <column name="height" value="166"/>
+            <column name="nationality" value="Spain"/>
+        </insert>
+        <insert tableName="PersonAttributes">
+            <column name="id_attributes" value="3"/>
+            <column name="age" value="56"/>
+            <column name="weight" value="95"/>
+            <column name="height" value="181"/>
+            <column name="nationality" value="Spain"/>
+        </insert>
+        <insert tableName="PersonAttributes">
+            <column name="id_attributes" value="4"/>
+            <column name="age" value="58"/>
+            <column name="weight" value="73"/>
+            <column name="height" value="161"/>
+            <column name="nationality" value="Spain"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
