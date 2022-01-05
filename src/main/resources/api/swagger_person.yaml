@@ -125,6 +125,8 @@ definitions:
         type: integer
         format: int32
         description: User Status
+      attributes:
+        type: string
   ResponseDto:
     type: object
     properties:
