@@ -3,6 +3,7 @@ package com.example.excercise.service;
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.entity.Person;
+import com.example.excercise.entity.PersonAttributes;
 import com.example.excercise.repository.PersonRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -81,7 +82,7 @@ public class PersonServiceTest {
 
     @Test
     public void whenGetPersonByIdThenResultOk(){
-        Person person = new Person(1,"sonia.bencomo","Sonia","Bencomo Jorge","sonia.bencomo@vass.es","soniabencomo","651597587",1);
+        Person person = new Person(1,"sonia.bencomo","Sonia","Bencomo Jorge","sonia.bencomo@vass.es","soniabencomo","651597587",1, new PersonAttributes());
         Mockito.when(personRepository.findById(1)).thenReturn(Optional.of(person));
         // when
         personDto = personService.getPersonById(personDto.getId());
@@ -100,7 +101,7 @@ public class PersonServiceTest {
 
     @Test
     public void whenGetAllPeopleThenResultOk(){
-        Person person = new Person(1,"sonia.bencomo","Sonia","Bencomo Jorge","sonia.bencomo@vass.es","soniabencomo","651597587",1);
+        Person person = new Person(1,"sonia.bencomo","Sonia","Bencomo Jorge","sonia.bencomo@vass.es","soniabencomo","651597587",1, new PersonAttributes());
         List<Person> personList = new ArrayList<>();
         personList.add(person);
         Mockito.when(personRepository.findAll()).thenReturn(List.of(person));
