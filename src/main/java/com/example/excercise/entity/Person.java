@@ -12,13 +12,13 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "userName")
+    @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
     @Column(name = "email")
@@ -30,14 +30,14 @@ public class Person {
     @Column(name = "phone")
     private String phone;
 
-    @Column(name = "userStatus")
+    @Column(name = "user_status")
     private Integer userStatus;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "attributes", referencedColumnName = "id_attributes")
+    @OneToOne()
+    @JoinColumn(unique = true)
     private PersonAttributes attributes;
 
-    public Person(Integer id, String userName, String firstName, String lastName, String email, String password, String phone, Integer userStatus) {
+    public Person(Integer id, String userName, String firstName, String lastName, String email, String password, String phone, Integer userStatus, PersonAttributes attributes) {
         this.id = id;
         this.userName = userName;
         this.firstName = firstName;
@@ -46,6 +46,7 @@ public class Person {
         this.password = password;
         this.phone = phone;
         this.userStatus = userStatus;
+        this.attributes = attributes;
     }
 
     public Integer getId() {
@@ -80,6 +81,8 @@ public class Person {
         return userStatus;
     }
 
+    public PersonAttributes getAttributes() { return attributes; }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -112,6 +115,8 @@ public class Person {
         this.userStatus = userStatus;
     }
 
+    public void setAttributes(PersonAttributes attributes) { this.attributes = attributes; }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -123,6 +128,7 @@ public class Person {
                 ", password='" + password + '\'' +
                 ", phone='" + phone + '\'' +
                 ", userStatus=" + userStatus +
+                ", attributes=" + attributes +
                 '}';
     }
 }
