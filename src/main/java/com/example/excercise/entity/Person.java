@@ -33,7 +33,7 @@ public class Person {
     @Column(name = "user_status")
     private Integer userStatus;
 
-    @OneToOne()
+    @OneToOne
     @JoinColumn(unique = true)
     private PersonAttributes attributes;
 
