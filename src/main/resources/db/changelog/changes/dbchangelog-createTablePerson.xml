@@ -8,13 +8,13 @@
             <column name="id" type="integer">
                 <constraints  nullable="false" primaryKey="true"/>
             </column>
-            <column  name="userName"  type="varchar(50)">
+            <column  name="user_name"  type="varchar(50)">
                 <constraints  nullable="false"/>
             </column>
-            <column  name="firstName"  type="varchar(50)">
+            <column  name="first_name"  type="varchar(50)">
                 <constraints  nullable="false"/>
             </column>
-            <column  name="lastName"  type="varchar(50)">
+            <column  name="last_name"  type="varchar(50)">
                 <constraints  nullable="false"/>
             </column>
             <column  name="email"  type="varchar(50)">
@@ -26,8 +26,11 @@
             <column  name="phone"  type="varchar(50)">
                 <constraints  nullable="false"/>
             </column>
-            <column  name="userStatus"  type="integer">
+            <column  name="user_status"  type="integer">
                 <constraints  nullable="false"/>
+            </column>
+            <column  name="attributes"  type="integer">
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_person_attributes_id" />
             </column>
         </createTable>
     </changeSet>

@@ -4,33 +4,77 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
     <changeSet  id="2"  author="Sonia">
-        <insert tableName="PersonAttributes">
+        <insert tableName="person_attributes">
             <column name="id_attributes" value="1"/>
             <column name="age" value="25"/>
             <column name="weight" value="62"/>
             <column name="height" value="168"/>
             <column name="nationality" value="Spain"/>
         </insert>
-        <insert tableName="PersonAttributes">
+        <insert tableName="person_attributes">
             <column name="id_attributes" value="2"/>
             <column name="age" value="29"/>
             <column name="weight" value="60"/>
             <column name="height" value="166"/>
             <column name="nationality" value="Spain"/>
         </insert>
-        <insert tableName="PersonAttributes">
+        <insert tableName="person_attributes">
             <column name="id_attributes" value="3"/>
             <column name="age" value="56"/>
             <column name="weight" value="95"/>
             <column name="height" value="181"/>
             <column name="nationality" value="Spain"/>
         </insert>
-        <insert tableName="PersonAttributes">
+        <insert tableName="person_attributes">
             <column name="id_attributes" value="4"/>
             <column name="age" value="58"/>
             <column name="weight" value="73"/>
             <column name="height" value="161"/>
             <column name="nationality" value="Spain"/>
+        </insert>
+        <insert tableName="Person">
+            <column name="id" value="1"/>
+            <column name="user_name" value="sonia.bencomo"/>
+            <column name="first_name" value="Sonia"/>
+            <column name="last_name" value="Bencomo Jorge"/>
+            <column name="email" value="sonia.bencomo@vass.es"/>
+            <column name="password" value="soniabencomo"/>
+            <column name="phone" value="651597587"/>
+            <column name="user_status" value="1"/>
+            <column name="attributes" value="1"/>
+        </insert>
+        <insert tableName="Person">
+            <column name="id" value="2"/>
+            <column name="user_name" value="marina.bencomo"/>
+            <column name="first_name" value="Marina"/>
+            <column name="last_name" value="Bencomo Jorge"/>
+            <column name="email" value="marina.bencomo@vass.es"/>
+            <column name="password" value="marinabencomo"/>
+            <column name="phone" value="662441317"/>
+            <column name="user_status" value="1"/>
+            <column name="attributes" value="2"/>
+        </insert>
+        <insert tableName="Person">
+            <column name="id" value="3"/>
+            <column name="user_name" value="angel.bencomo"/>
+            <column name="first_name" value="Ángel"/>
+            <column name="last_name" value="Bencomo Jiménez"/>
+            <column name="email" value="angel.bencomo@vass.es"/>
+            <column name="password" value="angelbencomo"/>
+            <column name="phone" value="625689635"/>
+            <column name="user_status" value="2"/>
+            <column name="attributes" value="3"/>
+        </insert>
+        <insert tableName="Person">
+            <column name="id" value="4"/>
+            <column name="user_name" value="consuelo.jorge"/>
+            <column name="first_name" value="Consuelo"/>
+            <column name="last_name" value="Jorge Gómez"/>
+            <column name="email" value="consuelo.jorge@vass.es"/>
+            <column name="password" value="consuelojorge"/>
+            <column name="phone" value="625689634"/>
+            <column name="user_status" value="2"/>
+            <column name="attributes" value="4"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

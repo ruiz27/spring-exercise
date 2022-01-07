@@ -4,14 +4,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
     <changeSet  id="3"  author="Sonia">
-        <addColumn tableName="Person">
-            <column name="attributes" type="varchar(50)">
-            </column>
-        </addColumn>
         <addForeignKeyConstraint  baseColumnNames="attributes"
                                   baseTableName="Person"
                                   constraintName="addAttributesId"
                                   referencedColumnNames="id_attributes"
-                                  referencedTableName="PersonAttributes"/>
+                                  referencedTableName="person_attributes"/>
     </changeSet>
 </databaseChangeLog>

@@ -4,8 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
     <changeSet  id="1"  author="Sonia">
-        <createTable  tableName="PersonAttributes">
-            <column name="id_attributes" type="varchar(50)">
+        <createTable  tableName="person_attributes">
+            <column name="id_attributes" type="integer">
                 <constraints  nullable="false" primaryKey="true"/>
             </column>
             <column  name="age"  type="varchar(50)">
