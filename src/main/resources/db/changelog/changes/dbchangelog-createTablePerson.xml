@@ -30,7 +30,7 @@
                 <constraints  nullable="false"/>
             </column>
             <column  name="attributes"  type="integer">
-                <constraints unique="true" nullable="true" uniqueConstraintName="ux_person_attributes_id" />
+                <constraints unique="true" nullable="true" uniqueConstraintName="ux_person_attributes" />
             </column>
         </createTable>
     </changeSet>
