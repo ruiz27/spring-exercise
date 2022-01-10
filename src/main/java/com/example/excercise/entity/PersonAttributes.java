@@ -27,7 +27,4 @@ public class PersonAttributes {
     @Column(name = "nationality")
     private String nationality;
 
-    @OneToOne(mappedBy = "attributes", fetch = FetchType.LAZY)
-    private Person person;
-
 }
