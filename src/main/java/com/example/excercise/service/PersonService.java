@@ -33,6 +33,7 @@ public class PersonService implements IPersonService {
             personDto = personMapper.personToPersonDto(person);
             personDtoList.add(personDto);
         }
+        //Stream<Person> personStream = personEntityList.stream().map(person -> personDto = personMapper.personToPersonDto(person));
         return personDtoList;
     }
 
