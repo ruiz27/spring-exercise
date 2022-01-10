@@ -37,7 +37,7 @@ public class PersonDto {
   private Integer userStatus = null;
 
   @JsonProperty("attributes")
-  private PersonAttributes attributes = null;
+  private Integer idAttributes = null;
 
   public PersonDto id(Integer id) {
     this.id = id;
