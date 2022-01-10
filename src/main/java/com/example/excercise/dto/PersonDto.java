@@ -36,7 +36,7 @@ public class PersonDto {
   @JsonProperty("userstatus")
   private Integer userStatus = null;
 
-  @JsonProperty("id_attribute_id")
+  @JsonProperty("refattribute")
   private Integer idAttribute = null;
 
   public PersonDto() {
