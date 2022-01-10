@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -26,14 +28,16 @@ public class PersonService implements IPersonService {
 
     @Override
     public List<PersonDto> getPeopleList() {
-        PersonDto personDto;
-        List<PersonDto> personDtoList = new ArrayList<>();
+        List<PersonDto> personDtoList;
         List<Person> personEntityList = personRepository.findAll();
-        for (Person person : personEntityList) {
+        /*for (Person person : personEntityList) {
             personDto = personMapper.personToPersonDto(person);
             personDtoList.add(personDto);
-        }
-        //Stream<Person> personStream = personEntityList.stream().map(person -> personDto = personMapper.personToPersonDto(person));
+        }*/
+
+       personDtoList = personEntityList.stream().map(personMapper::personToPersonDto).collect(Collectors.toList());
+
+
         return personDtoList;
     }
 
