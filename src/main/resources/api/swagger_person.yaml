@@ -124,8 +124,23 @@ definitions:
       userStatus:
         type: integer
         format: int32
-        description: User Status
       attributes:
+        type: integer
+        items:
+          $ref: '#/definitions/PersonAttributes'
+  PersonAttributes:
+    type: object
+    properties:
+      idAttributes:
+        type: integer
+        format: int64
+      age:
+        type: string
+      weight:
+        type: string
+      height:
+        type: string
+      nationality:
         type: string
   ResponseDto:
     type: object
