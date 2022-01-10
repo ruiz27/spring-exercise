@@ -1,5 +1,6 @@
 package com.example.excercise.dto;
 
+import com.example.excercise.entity.PersonAttributes;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +35,9 @@ public class PersonDto {
 
   @JsonProperty("userStatus")
   private Integer userStatus = null;
+
+  @JsonProperty("attributes")
+  private PersonAttributes attributes = null;
 
   public PersonDto id(Integer id) {
     this.id = id;
