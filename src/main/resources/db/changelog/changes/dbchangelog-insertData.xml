@@ -43,7 +43,7 @@
             <column name="user_status" value="1"/>
             <column name="attributes" value="1"/>
         </insert>
-        <insert tableName="Person">
+        <insert tableName="person">
             <column name="id" value="2"/>
             <column name="user_name" value="marina.bencomo"/>
             <column name="first_name" value="Marina"/>
@@ -54,7 +54,7 @@
             <column name="user_status" value="1"/>
             <column name="attributes" value="2"/>
         </insert>
-        <insert tableName="Person">
+        <insert tableName="person">
             <column name="id" value="3"/>
             <column name="user_name" value="angel.bencomo"/>
             <column name="first_name" value="Ángel"/>
@@ -65,7 +65,7 @@
             <column name="user_status" value="2"/>
             <column name="attributes" value="3"/>
         </insert>
-        <insert tableName="Person">
+        <insert tableName="person">
             <column name="id" value="4"/>
             <column name="user_name" value="consuelo.jorge"/>
             <column name="first_name" value="Consuelo"/>
