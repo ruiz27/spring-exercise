@@ -10,14 +10,14 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name="PersonAttribute")
+@Table(name="person_attribute")
 public class PersonAttribute implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "idAttribute")
+    @Column(name = "idattribute")
     private int idAttribute;
     @Column(name = "attribute")
     private String attribute;

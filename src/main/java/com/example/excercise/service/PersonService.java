@@ -1,7 +1,7 @@
 package com.example.excercise.service;
 
-import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.dto.PersonDto;
+import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.entities.Person;
 import com.example.excercise.mapper.PersonMapper;
 import com.example.excercise.repository.PersonRepository;
@@ -16,9 +16,10 @@ import java.util.Optional;
 @Service
 public class PersonService implements IPersonService {
 
+
     private final PersonRepository personRepository;
     private final PersonMapper personMapper;
-    public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
+    public PersonService( PersonRepository personRepository, PersonMapper personMapper) {
         this.personRepository = personRepository;
         this.personMapper = personMapper;
     }
@@ -85,9 +86,11 @@ public class PersonService implements IPersonService {
         log.debug("ini endpoint getPersonById");
        PersonDto personRequestedDto = new PersonDto();
        Optional<Person> personRequested = personRepository.findById(id);
+
        if(personRequested.isPresent()) {
-           personRequestedDto = personMapper.personToPersonDto(personRequested.get());
            log.info("Se ha encontrado la persona");
+           personRequestedDto = personMapper.personToPersonDto(personRequested.get());
+
        }
         log.debug("Se ha encontrado la persona en la persistencia de datos correctamente.");
         return personRequestedDto;

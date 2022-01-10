@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Getter@Setter
 @Entity
-@Table(name="Person")
+@Table(name="person")
 public class Person implements Serializable {
     @Id
     @Column(name = "id")
@@ -25,11 +25,11 @@ public class Person implements Serializable {
     private String password;
     @Column(name = "phone")
     private String phone;
-    @Column(name = "userStatus")
+    @Column(name = "userstatus")
     private Integer userstatus;
 
     @OneToOne
-    @JoinColumn( name = "id_attribute_id" , unique = true)
+    @JoinColumn( unique = true )
     private PersonAttribute idAttribute;
 
     public Person() {
