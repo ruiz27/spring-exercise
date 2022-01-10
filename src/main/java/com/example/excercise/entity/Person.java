@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@Table(name="Person")
+@Table(name="person")
 public class Person {
     public Person(){}
 
@@ -39,7 +39,7 @@ public class Person {
     private Integer userStatus;
 
     @OneToOne
-    @JoinColumn(unique = true)
+    @JoinColumn(unique = true, name = "attributes")
     private PersonAttributes attributes;
 
     public Person(Integer id, String userName, String firstName, String lastName, String email, String password, String phone, Integer userStatus, PersonAttributes attributes) {
