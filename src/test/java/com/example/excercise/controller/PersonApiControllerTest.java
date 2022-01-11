@@ -18,9 +18,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
 import java.util.ArrayList;
 import java.util.List;
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -173,6 +175,57 @@ public class PersonApiControllerTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Test
+    public void whenGetPersonByName(){
+        List<PersonDto> list = new ArrayList<>();
+        PersonDto personDto2 = new PersonDto(2,"alopez","Antonio","Lopez","pluis@mail.com","12345","54565434",1);
+        PersonDto personDto3 = new PersonDto(2,"mantonio","Marco Antonio","Ruiz","pluis@mail.com","12345","54565434",1);
+
+        list.add(personDto2);
+        list.add(personDto3);
+
+        when(service.getPersonByName("Antonio")).thenReturn(list);
+        try{
+            MvcResult mvcResult = mockMvc.perform(get("/v1/person/findByName/{name}", "Antonio")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(list))).andExpect(status().isOk())
+                    .andReturn();
+
+            List<PersonDto> personDtoList = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),List.class);
+            assertEquals(list.size(), personDtoList.size());
+        }catch(Exception e){
+          e.printStackTrace();
+        }
+
+
+    }
+    @Test
+    public void whenGetPersonByNameNotPresent(){
+        List<PersonDto> list = new ArrayList<>();
+        PersonDto personDto2 = new PersonDto(2,"alopez","Antonio","Lopez","pluis@mail.com","12345","54565434",1);
+        PersonDto personDto3 = new PersonDto(2,"mantonio","Marco Antonio","Ruiz","pluis@mail.com","12345","54565434",1);
+
+        list.add(personDto2);
+        list.add(personDto3);
+
+        when(service.getPersonByName(ArgumentMatchers.any())).thenReturn(null);
+        try{
+            MvcResult mvcResult = mockMvc.perform(get("/v1/person/findByName/{name}", "Antonio")
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(list))).andExpect(status().isNotFound())
+                    .andReturn();
+
+            List<PersonDto> personDtoList = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),List.class);
+            assertTrue(personDtoList.isEmpty());
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 }
