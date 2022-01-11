@@ -114,5 +114,19 @@ public class PersonServiceTest {
         //Then
         assertEquals("pluis",person1.getUsername());
     }
+    @Test
+    public void whenGetPersonByNameThenReturnListPersonDto(){
+        List<Person> list = new ArrayList<>();
+        Person person1 = new Person(1,"mperez","Marco Antonio","Perez","pluis@mail.com","12345","54565434",1);
+        Person person2 = new Person(2,"aruiz","Antonio","Ruiz","pluis@mail.com","12345","54565434",1);
+        Person person3 = new Person(3,"mlopez","Maria","Lopez","mlopez@mail.com","12345","54565434",1);
+        list.add(person1);
+        list.add(person2);
+        list.add(person3);
 
+        Mockito.when(personRepository.findAll()).thenReturn(list);
+
+        assertEquals(2, personService.getPersonByName("Antonio").size());
+
+    }
 }
