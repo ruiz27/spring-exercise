@@ -64,4 +64,14 @@ public interface PersonApi {
             method = RequestMethod.GET)
     ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("id") Integer id);
 
+
+    @ApiOperation(value = "Find person by Name", nickname = "getPersonByName", notes = "Returns a single person", response = PersonDto.class, tags={ "person", })
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "successful operation", response = PersonDto.class),
+            @ApiResponse(code = 400, message = "Invalid Name supplied"),
+            @ApiResponse(code = 404, message = "Person not found") })
+    @RequestMapping(value = "/person/findByName/{name}",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    ResponseEntity<List<PersonDto>> getPersonByName(@ApiParam(value = "Name of person to return",required=true) @PathVariable("name") String name);
 }

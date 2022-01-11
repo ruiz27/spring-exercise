@@ -8,7 +8,6 @@ import com.example.excercise.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -99,5 +98,15 @@ public class PersonService implements IPersonService {
        }
         log.debug("Se ha encontrado la persona en la persistencia de datos correctamente.");
         return personRequestedDto;
+    }
+
+    @Override
+    public List<PersonDto> getPersonByName(String name) {
+        List<PersonDto> personFoundByName;
+        Stream<Person> personStream = personRepository.findAll().stream();
+
+        personFoundByName = personStream.filter(person -> person.getFirstname().contains(name)).map(personMapper::personToPersonDto).collect(Collectors.toList());
+
+        return personFoundByName;
     }
 }
