@@ -2,6 +2,7 @@ package com.example.excercise.controller;
 
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
+import com.example.excercise.entities.Person;
 import com.example.excercise.service.PersonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
@@ -58,6 +59,7 @@ public class PersonApiControllerTest {
         personDto1.setPassword("test");
         personDto1.setPhone("32452623");
         personDto1.setUserStatus(2);
+        personDto1.setId(1);
 
     }
 
@@ -160,18 +162,18 @@ public class PersonApiControllerTest {
     }
     @Test
     public void whenGetPersonThatNotExists(){
-
-        when(service.getPersonById(ArgumentMatchers.any())).thenReturn(null);
+        PersonDto personDto15 = new PersonDto();
+        when(service.getPersonById(personDto15.getId())).thenReturn(null);
 
         try {
-            MvcResult mvcResult = mockMvc.perform(get("/v1/person/{id}","1")
+            MvcResult mvcResult = mockMvc.perform(get("/v1/person/{id}","15")
                             .accept(MediaType.APPLICATION_JSON)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content(objectMapper.writeValueAsString(personDto1))).andExpect(status().isNotFound())
+                            .content(objectMapper.writeValueAsString(personDto15))).andExpect(status().isNotFound())
                             .andReturn();
 
             String resultString = mvcResult.getResponse().getContentAsString();
-            Assert.assertEquals("",resultString );
+            Assert.assertEquals(null,resultString );
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -206,13 +208,13 @@ public class PersonApiControllerTest {
     @Test
     public void whenGetPersonByNameNotPresent(){
         List<PersonDto> list = new ArrayList<>();
-        PersonDto personDto2 = new PersonDto(2,"alopez","Antonio","Lopez","pluis@mail.com","12345","54565434",1);
+        /*PersonDto personDto2 = new PersonDto(2,"alopez","Antonio","Lopez","pluis@mail.com","12345","54565434",1);
         PersonDto personDto3 = new PersonDto(2,"mantonio","Marco Antonio","Ruiz","pluis@mail.com","12345","54565434",1);
 
         list.add(personDto2);
-        list.add(personDto3);
+        list.add(personDto3);*/
 
-        when(service.getPersonByName(ArgumentMatchers.any())).thenReturn(null);
+        when(service.getPersonByName(ArgumentMatchers.any())).thenReturn(list);
         try{
             MvcResult mvcResult = mockMvc.perform(get("/v1/person/findByName/{name}", "Antonio")
                             .accept(MediaType.APPLICATION_JSON)
