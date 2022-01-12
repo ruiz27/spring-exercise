@@ -12,4 +12,5 @@ public interface IPersonService {
     ResponseDto deletePersonById(Integer id);
     PersonDto getPersonById(Integer id);
     List<PersonDto> getPersonByName(String name);
+    List<PersonDto> findByUsernameContaining(String username);
 }

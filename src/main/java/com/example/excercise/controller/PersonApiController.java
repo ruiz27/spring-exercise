@@ -61,4 +61,15 @@ public class PersonApiController implements PersonApi {
         return new ResponseEntity<List<PersonDto>>((List<PersonDto>) service.getPersonByName(name), HttpStatus.OK);
     }
 
+
+
+    @GetMapping("/person/findByUsername/{username}")
+    public ResponseEntity<List<PersonDto>> findByUsernameContaining(@ApiParam(value = "Username of person to return",required=true) @PathVariable("username") String username) {
+        if( service.findByUsernameContaining(username) == null) {
+            return new ResponseEntity<List<PersonDto>>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<List<PersonDto>>( service.findByUsernameContaining(username), HttpStatus.OK);
+    }
+
 }

@@ -8,6 +8,7 @@ import com.example.excercise.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -102,11 +103,29 @@ public class PersonService implements IPersonService {
 
     @Override
     public List<PersonDto> getPersonByName(String name) {
-        List<PersonDto> personFoundByName;
-        Stream<Person> personStream = personRepository.findAll().stream();
-
-        personFoundByName = personStream.filter(person -> person.getFirstname().contains(name)).map(personMapper::personToPersonDto).collect(Collectors.toList());
-
+        List<PersonDto> personFoundByName = new ArrayList<>();
+        try{
+            Stream<Person> personStream = personRepository.findAll().stream();
+            if(personStream != null){
+                personFoundByName = personStream.filter(person -> person.getFirstname().contains(name)).map(personMapper::personToPersonDto).collect(Collectors.toList());
+            }
+        }catch (Exception e){
+            new Exception().printStackTrace();
+        }
         return personFoundByName;
+    }
+
+    @Override
+    public List<PersonDto> findByUsernameContaining(String username) {
+       List<PersonDto> personDto = new ArrayList<>();
+       try{
+           Stream<Person> person = personRepository.findByUsernameContaining(username).stream();
+           if(person != null){
+               personDto = person.map(personMapper::personToPersonDto).collect(Collectors.toList());
+           }
+       }catch (Exception e){
+           new Exception().printStackTrace();
+       }
+       return personDto;
     }
 }
