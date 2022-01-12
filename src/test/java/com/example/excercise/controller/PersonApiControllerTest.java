@@ -2,7 +2,6 @@ package com.example.excercise.controller;
 
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
-import com.example.excercise.entities.Person;
 import com.example.excercise.service.PersonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
@@ -23,7 +22,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -37,7 +37,7 @@ public class PersonApiControllerTest {
 
     private PersonDto personDto1;
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     private ResponseDto response;
 
     @Autowired
@@ -173,7 +173,7 @@ public class PersonApiControllerTest {
                             .andReturn();
 
             String resultString = mvcResult.getResponse().getContentAsString();
-            Assert.assertEquals(null,resultString );
+            Assert.assertNull(resultString);
         } catch (Exception e) {
             e.printStackTrace();
         }
