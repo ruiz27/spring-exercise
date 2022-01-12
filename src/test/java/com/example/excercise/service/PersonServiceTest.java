@@ -47,6 +47,7 @@ public class PersonServiceTest {
         personDto.setPassword("test");
         personDto.setPhone("32452623");
         personDto.setUserStatus(2);
+        personDto.setIdAttribute(1);
 
     }
     @Test
