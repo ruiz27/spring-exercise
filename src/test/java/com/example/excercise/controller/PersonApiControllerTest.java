@@ -75,7 +75,7 @@ public class PersonApiControllerTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(list))).andExpect(status().isOk())
                             .andReturn();
-            
+
             List<PersonDto> personDtoResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class);
             assertEquals(list.size(),personDtoResult.size() );
         } catch (Exception e) {
