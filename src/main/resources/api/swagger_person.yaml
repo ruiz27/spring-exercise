@@ -102,6 +102,33 @@ paths:
         '404':
           description: "Person not found"
 
+  /person/userName/{personUserName}:
+    get:
+      tags:
+        - person
+      summary: Find person by userName
+      description: Returns a list
+      operationId: getPeopleByName
+      produces:
+        - application/json
+      parameters:
+        - name: personUserName
+          in: path
+          description: Name of people to return
+          required: true
+          type: string
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/PersonDto'
+        '400':
+          description: "Invalid name supplied"
+        '404':
+          description: "Person not found"
+
+
+
 definitions:
   PersonDto:
     type: object
