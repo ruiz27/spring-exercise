@@ -3,12 +3,13 @@ package com.example.excercise.service;
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.entities.Person;
-import com.example.excercise.mapper.PersonMapper;
 import com.example.excercise.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,6 @@ public class PersonServiceTest {
     @Mock
     PersonRepository personRepository;
 
-    @Mock
-    PersonMapper personMapper;
 
 
 
