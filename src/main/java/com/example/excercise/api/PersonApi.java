@@ -27,6 +27,11 @@ public interface PersonApi {
         method = RequestMethod.GET)
     ResponseEntity<List<PersonDto>> getAllPeople();
 
+    @RequestMapping(value = "/person/userName/{personUserName}",
+            produces = { "application/json"},
+            method = RequestMethod.GET)
+    ResponseEntity<List<PersonDto>> getPeopleByName(@ApiParam(value = "Name of people to return", required = true) @PathVariable("userName") String userName);
+
     @RequestMapping(value = "/person/{personId}",
             produces = { "application/json"},
             method = RequestMethod.GET)

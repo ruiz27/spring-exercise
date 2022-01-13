@@ -33,6 +33,14 @@ public class PersonApiController implements PersonApi {
         return new ResponseEntity<List<PersonDto>>(iPersonService.getAllPeople(), HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<List<PersonDto>> getPeopleByName(String userName) {
+        if(iPersonService.getPeopleByName().isEmpty()){
+            return new ResponseEntity<List<PersonDto>>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<List<PersonDto>>(iPersonService.getPeopleByName(), HttpStatus.OK);
+    }
+
     public ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("personId") Integer id){
         PersonDto personDto = iPersonService.getPersonById(id);
         if(personDto == null){
