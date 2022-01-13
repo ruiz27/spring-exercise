@@ -2,6 +2,7 @@ package com.example.excercise.controller;
 
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
+import com.example.excercise.entities.Person;
 import com.example.excercise.service.PersonService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
@@ -22,8 +23,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -59,7 +59,7 @@ public class PersonApiControllerTest {
         personDto1.setPassword("test");
         personDto1.setPhone("32452623");
         personDto1.setUserStatus(2);
-        personDto1.setId(1);
+        personDto1.setIdAttribute(1);
 
     }
 
@@ -75,7 +75,7 @@ public class PersonApiControllerTest {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(list))).andExpect(status().isOk())
                             .andReturn();
-
+            
             List<PersonDto> personDtoResult = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class);
             assertEquals(list.size(),personDtoResult.size() );
         } catch (Exception e) {
@@ -205,14 +205,10 @@ public class PersonApiControllerTest {
 
 
     }
+
     @Test
     public void whenGetPersonByNameNotPresent(){
         List<PersonDto> list = new ArrayList<>();
-        /*PersonDto personDto2 = new PersonDto(2,"alopez","Antonio","Lopez","pluis@mail.com","12345","54565434",1);
-        PersonDto personDto3 = new PersonDto(2,"mantonio","Marco Antonio","Ruiz","pluis@mail.com","12345","54565434",1);
-
-        list.add(personDto2);
-        list.add(personDto3);*/
 
         when(service.getPersonByName(ArgumentMatchers.any())).thenReturn(list);
         try{
@@ -227,7 +223,47 @@ public class PersonApiControllerTest {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
 
+    @Test
+    public void whenFindByUsername(){
+        List<PersonDto> list = new ArrayList<>();
+        PersonDto person1 = new PersonDto(1,"super mario","Marco Antonio","Perez","pluis@mail.com","12345","54565434",1);
+        PersonDto person2 = new PersonDto(2,"super man","Antonio","Ruiz","pluis@mail.com","12345","54565434",1);
+        list.add(person1);
+        list.add(person2);
 
+        when(service.findByUsernameContaining("super")).thenReturn(list);
+        try{
+            MvcResult mvcResult = mockMvc.perform(get("/v1/person/findByUsername/{username}","super")
+                    .accept(MediaType.APPLICATION_JSON)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(objectMapper.writeValueAsString(list))).andExpect(status().isOk())
+                    .andReturn();
+
+            List<PersonDto> personDtoList = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), List.class);
+                assertEquals(list.size(), personDtoList.size());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
+    @Test
+    public void whenFindByUsernameNotPresent(){
+        List<PersonDto> personDtoList = new ArrayList<>();
+        when(service.findByUsernameContaining(ArgumentMatchers.any())).thenReturn(null);
+        try{
+            MvcResult mvcResult = mockMvc.perform(get("/v1/person/findByUsername/{username}", "super")
+                            .accept(MediaType.APPLICATION_JSON)
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(personDtoList))).andExpect(status().isNotFound())
+                    .andReturn();
+
+            personDtoList = objectMapper.readValue(mvcResult.getResponse().getContentAsString(),List.class);
+            assertNull(personDtoList);
+
+        }catch (Exception e){
+             e.printStackTrace();}
     }
 }

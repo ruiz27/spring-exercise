@@ -8,10 +8,7 @@ import com.example.excercise.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,5 +126,20 @@ public class PersonServiceTest {
 
         assertEquals(2, personService.getPersonByName("Antonio").size());
 
+    }
+    @Test
+    public void findByUsernameContaining(){
+        List<Person> list = new ArrayList<>();
+        Person person1 = new Person(1,"super mario","Marco Antonio","Perez","pluis@mail.com","12345","54565434",1);
+        Person person2 = new Person(2,"super man","Antonio","Ruiz","pluis@mail.com","12345","54565434",1);
+        Person person3 = new Person(3,"marial","Maria","Lopez","mlopez@mail.com","12345","54565434",1);
+        list.add(person1);
+        list.add(person2);
+        list.add(person3);
+
+        Mockito.when(personRepository.findByUsernameContaining("super")).thenReturn(list.subList(0,1));
+        List<PersonDto> personDtoList = personService.findByUsernameContaining("super");
+        assertEquals(personRepository.findByUsernameContaining("super").size() , personDtoList.size());
+        //Evaluar las excepciones para cubrir mas cobertura de test
     }
 }

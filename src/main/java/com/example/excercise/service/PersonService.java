@@ -110,7 +110,7 @@ public class PersonService implements IPersonService {
                 personFoundByName = personStream.filter(person -> person.getFirstname().contains(name)).map(personMapper::personToPersonDto).collect(Collectors.toList());
             }
         }catch (Exception e){
-            new Exception().printStackTrace();
+            e.printStackTrace();
         }
         return personFoundByName;
     }
@@ -124,7 +124,7 @@ public class PersonService implements IPersonService {
                personDto = person.map(personMapper::personToPersonDto).collect(Collectors.toList());
            }
        }catch (Exception e){
-           new Exception().printStackTrace();
+           e.printStackTrace();
        }
        return personDto;
     }
