@@ -3,13 +3,11 @@ package com.example.excercise.service;
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.dto.ResponseDto;
 import com.example.excercise.entities.Person;
+import com.example.excercise.mapper.PersonMapper;
 import com.example.excercise.repository.PersonRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +26,8 @@ public class PersonServiceTest {
     @Mock
     PersonRepository personRepository;
 
-
+   @Mock
+   PersonMapper personMapper;
 
 
     @BeforeEach
@@ -126,6 +125,14 @@ public class PersonServiceTest {
         assertEquals(2, personService.getPersonByName("Antonio").size());
 
     }
+
+    @org.junit.Test(expected = Exception.class)
+    public void findByNameException(){
+
+        Mockito.when( personRepository.findAll()).thenThrow(new Exception());
+        personService.getPersonByName(ArgumentMatchers.any());
+
+    }
     @Test
     public void findByUsernameContaining(){
         List<Person> list = new ArrayList<>();
@@ -139,6 +146,13 @@ public class PersonServiceTest {
         Mockito.when(personRepository.findByUsernameContaining("super")).thenReturn(list.subList(0,1));
         List<PersonDto> personDtoList = personService.findByUsernameContaining("super");
         assertEquals(personRepository.findByUsernameContaining("super").size() , personDtoList.size());
-        //Evaluar las excepciones para cubrir mas cobertura de test
+
+    }
+    @org.junit.Test(expected = Exception.class)
+    public void findByUsernameContainingException(){
+
+        Mockito.when( personRepository.findByUsernameContaining(ArgumentMatchers.any())).thenThrow(new Exception());
+        personService.findByUsernameContaining(ArgumentMatchers.any());
+
     }
 }

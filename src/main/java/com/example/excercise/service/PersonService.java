@@ -110,7 +110,8 @@ public class PersonService implements IPersonService {
                 personFoundByName = personStream.filter(person -> person.getFirstname().contains(name)).map(personMapper::personToPersonDto).collect(Collectors.toList());
             }
         }catch (Exception e){
-            e.printStackTrace();
+            log.error("Error al acceder a la base de datos");
+            throw e;
         }
         return personFoundByName;
     }
@@ -124,7 +125,8 @@ public class PersonService implements IPersonService {
                personDto = person.map(personMapper::personToPersonDto).collect(Collectors.toList());
            }
        }catch (Exception e){
-           e.printStackTrace();
+           log.error("Error al acceder a la base de datos");
+           throw e;
        }
        return personDto;
     }
