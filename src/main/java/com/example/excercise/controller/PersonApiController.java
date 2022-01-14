@@ -34,7 +34,7 @@ public class PersonApiController implements PersonApi {
     }
 
     @Override
-    public ResponseEntity<List<PersonDto>> getPeopleByName(String userName) {
+    public ResponseEntity<List<PersonDto>> getPeopleByName(String firstName) {
         if(iPersonService.getPeopleByName().isEmpty()){
             return new ResponseEntity<List<PersonDto>>(HttpStatus.NOT_FOUND);
         }

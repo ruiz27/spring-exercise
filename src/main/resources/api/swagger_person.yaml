@@ -102,7 +102,7 @@ paths:
         '404':
           description: "Person not found"
 
-  /person/userName/{personUserName}:
+  /person/userName/{personFirstName}:
     get:
       tags:
         - person

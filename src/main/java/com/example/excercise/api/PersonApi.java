@@ -27,10 +27,10 @@ public interface PersonApi {
         method = RequestMethod.GET)
     ResponseEntity<List<PersonDto>> getAllPeople();
 
-    @RequestMapping(value = "/person/userName/{personUserName}",
+    @RequestMapping(value = "/person/userName/{personFirstName}",
             produces = { "application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<List<PersonDto>> getPeopleByName(@ApiParam(value = "Name of people to return", required = true) @PathVariable("userName") String userName);
+    ResponseEntity<List<PersonDto>> getPeopleByName(@ApiParam(value = "Name of people to return", required = true) @PathVariable("firstName") String firstName);
 
     @RequestMapping(value = "/person/{personId}",
             produces = { "application/json"},
