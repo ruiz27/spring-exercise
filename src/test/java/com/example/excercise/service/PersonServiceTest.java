@@ -81,6 +81,29 @@ public class PersonServiceTest {
     }
 
     @Test
+    public void whenGetPeopleByNameThenResultOk() {
+        Person person = new Person(1,"sonia.bencomo","Sonia","Bencomo Jorge","sonia.bencomo@vass.es","soniabencomo","651597587",1, new PersonAttributes());
+        List<Person> personList = new ArrayList<>();
+        personList.add(person);
+        Mockito.when(personRepository.findAll()).thenReturn(List.of(person));
+        // when
+        List<PersonDto> personDtoList = personService.getPeopleByName("Sonia");
+        // then
+        assertEquals(1,personList.size());
+    }
+
+    @Test
+    public void whenGetPeopleByNameNotFoundThenResultOk(){
+        Person person = new Person();
+        List<Person> personList = new ArrayList<>();
+        Mockito.when(personRepository.findAll()).thenReturn(List.of(person));
+        // when
+        List <PersonDto> personDtoList = personService.getPeopleByName("Sonia");
+        // then
+        assertEquals(0,personList.size());
+    }
+
+    @Test
     public void whenGetPersonByIdThenResultOk(){
         Person person = new Person(1,"sonia.bencomo","Sonia","Bencomo Jorge","sonia.bencomo@vass.es","soniabencomo","651597587",1, new PersonAttributes());
         Mockito.when(personRepository.findById(1)).thenReturn(Optional.of(person));

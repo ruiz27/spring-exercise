@@ -122,6 +122,37 @@ public class PersonApiControllerTest {
     }
 
     @Test
+    public void whenGetPeopleByNameReturnNotFound() throws Exception{
+        List<PersonDto> personList = new ArrayList<>();
+        Mockito.when(iPersonService.getPeopleByName("Sonia")).thenReturn(personList);
+        MvcResult mvcResult = mockMvc.perform(get("/v1/person")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(personList))).andExpect(status().isNotFound())
+                .andReturn();
+
+        String response = mvcResult.getResponse().getContentAsString();
+
+        assertEquals("",response);
+    }
+
+    @Test
+    public void whenGetPeopleByNameReturnPerson() throws Exception {
+        List<PersonDto> personList = new ArrayList<>();
+       Mockito.when(iPersonService.getPeopleByName("Sonia")).thenReturn(personList);
+
+        MvcResult mvcResult = mockMvc.perform(get("/v1/person/{id}","Sonia")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(personDto))).andExpect(status().isOk())
+                .andReturn();
+
+        PersonDto response = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), PersonDto.class);
+
+        assertEquals(response.getFirstName(),personDto.getFirstName());
+    }
+
+    @Test
     public void whenGetPersonByIdReturnNotFound() throws Exception{
         Mockito.when(iPersonService.getPersonById(ArgumentMatchers.any())).thenReturn(null);
 

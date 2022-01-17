@@ -8,38 +8,49 @@ import com.example.excercise.repository.PersonRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @Slf4j
 public class PersonService implements IPersonService{
 
     private final PersonRepository personRepository;
+    private final PersonMapper personMapper;
 
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, PersonMapper personMapper) {
         this.personRepository = personRepository;
+        this.personMapper = personMapper;
     }
+
 
     @Override
     public List <PersonDto> getAllPeople() {
         List<PersonDto> personDtoList = new ArrayList<>();
         List<Person> personList = personRepository.findAll();
 
-        PersonDto personDto;
-        for(Person person : personList){
-            personDto = PersonMapper.INSTANCIA.personToPersonDto(person);
-            personDtoList.add(personDto);
-        }
-        return personDtoList;
+        return personDtoList = personList.stream()
+                .map(personMapper::personToPersonDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List <PersonDto> getPeopleByName(String firstName) {
+        List <PersonDto> personDtoList = new ArrayList<>();
+        Stream <Person> personList = personRepository.findAll().stream();
+
+
+        return personDtoList = personList
+                .filter(p -> p.getFirstName().contains(firstName))
+                .map(personMapper::personToPersonDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public PersonDto getPersonById(Integer id){
         PersonDto personDto;
         Optional <Person> personEntityList = personRepository.findById(id);
-
             if(personEntityList.isPresent()){
                 Person person = personEntityList.get();
                 personDto = PersonMapper.INSTANCIA.personToPersonDto(person);

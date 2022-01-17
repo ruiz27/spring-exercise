@@ -35,10 +35,10 @@ public class PersonApiController implements PersonApi {
 
     @Override
     public ResponseEntity<List<PersonDto>> getPeopleByName(String firstName) {
-        if(iPersonService.getPeopleByName().isEmpty()){
+        if(iPersonService.getPeopleByName(firstName).isEmpty()){
             return new ResponseEntity<List<PersonDto>>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<List<PersonDto>>(iPersonService.getPeopleByName(), HttpStatus.OK);
+        return new ResponseEntity<List<PersonDto>>(iPersonService.getPeopleByName(firstName), HttpStatus.OK);
     }
 
     public ResponseEntity<PersonDto> getPersonById(@ApiParam(value = "ID of person to return",required=true) @PathVariable("personId") Integer id){
