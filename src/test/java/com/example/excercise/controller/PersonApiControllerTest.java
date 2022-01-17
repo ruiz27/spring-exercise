@@ -141,7 +141,7 @@ public class PersonApiControllerTest {
         List<PersonDto> personList = new ArrayList<>();
        Mockito.when(iPersonService.getPeopleByName("Sonia")).thenReturn(personList);
 
-        MvcResult mvcResult = mockMvc.perform(get("/v1/person/{id}","Sonia")
+        MvcResult mvcResult = mockMvc.perform(get("/v1/person/firstName/{firstName}","Sonia")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(personDto))).andExpect(status().isOk())
