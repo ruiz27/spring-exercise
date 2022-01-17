@@ -102,17 +102,17 @@ paths:
         '404':
           description: "Person not found"
 
-  /person/userName/{personFirstName}:
+  /person/firstName/{personFirstName}:
     get:
       tags:
         - person
-      summary: Find person by userName
+      summary: Find person by firstName
       description: Returns a list
       operationId: getPeopleByName
       produces:
         - application/json
       parameters:
-        - name: personUserName
+        - name: personFirstName
           in: path
           description: Name of people to return
           required: true
