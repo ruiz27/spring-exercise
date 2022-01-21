@@ -2,10 +2,10 @@ package com.example.excercise.mapper;
 
 import com.example.excercise.dto.PersonDto;
 import com.example.excercise.entities.Person;
-import com.example.excercise.entities.PersonAttribute;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+//Posible uso etiqueta uses para mapear objetos dentro de objetos
 @Mapper(componentModel = "Spring")
 public interface PersonMapper {
 
